@@ -4,9 +4,9 @@ Plan maestro del trabajo pendiente. [Especificación e investigación](docs/GAME
 
 ## Cómo leer este plan
 
-- Esta entrega documenta, no implementa. Nada está ejecutándose por crear esta lista.
-- Now: alcance ya aceptado. Next: sucesores aceptados cuando existan. Needs decision: ampliaciones propuestas por el diseñador y puertas externas; no elegibles para ejecución automática.
-- La ampliación RPG descrita es una recomendación finita para aprobación, no una promesa de todas las funciones de un RPG comercial.
+- Ampliación aprobada por el usuario: «ok has todo». Implementación parcial verificada; ver [estado real](docs/IMPLEMENTATION_STATUS.md). No se declara terminada la lista completa.
+- Now/Next: alcance aceptado con trabajo o calificación pendiente. Las puertas externas de dispositivo, iOS y publicación conservan sus límites.
+- La ampliación RPG está aceptada para implementación local; no incluye publicación automática ni alcance infinito.
 - Se preservan T-001 y T-003 terminadas en el archivo y T-002 como pendiente prioritario. Las nuevas tareas conservan dependencias aunque la prioridad agrupe entregas.
 - No backend, cuentas, anuncios, pagos, gacha, clanes ni multijugador. No commits, workers, cron ni publicación autorizados.
 - Cada Checks es procedimiento futuro, no evidencia de aprobación. Tests/fixtures nuevos se crean durante la tarea; no se presume que ya existen.
@@ -15,28 +15,73 @@ Plan maestro del trabajo pendiente. [Especificación e investigación](docs/GAME
 
 ## Now
 
+### Pulido profesional aprobado
+
+- [ ] POL-01 — Poses y animación de combate
+  Progress: poses diferenciadas de defensa, impacto y derrota conectadas al estado real; test de cinco poses distintas aprobado. Pendiente anticipación y articulación completa de brazos/piernas y revisión visual por héroe.
+  Acceptance: preparación, ataque, impacto, defensa y derrota legibles; reducción de movimiento; remate visible.
+  Touches: lib/presentation/hero_art.dart; lib/presentation/lantern_scene.dart; test/.
+- [ ] POL-02 — Cuatro enemigos con siluetas propias
+  Progress: nuevo EnemyArt integrado: mota, escarabajo blindado, depredador con cola y guardián pétreo con núcleo; prueba de render y hoja comparativa inspeccionadas sin recortes graves. Falta recorrido visual de los cuatro dentro de la arena móvil.
+  Acceptance: mota, acorazado, acechador y jefe diferenciados por cuerpo/equipo, no solo escala.
+  Touches: lib/presentation/enemy_art.dart; lib/presentation/lantern_scene.dart; test/.
+- [ ] POL-03 — HUD y acciones comprensibles
+  Progress: controles actuales conservados y pelea/protección ejercitados en navegador móvil. Sigue pendiente reorganización del HUD y explicación visual de intención/maná.
+  Acceptance: vida, carga, PM e intención distinguibles; acciones prioritarias visibles en móvil y accesibles al 200%.
+  Touches: lib/presentation/campaign_menu.dart; lib/presentation/rpg_view.dart; test/.
+- [ ] POL-04 — Lenguaje visual propio completo
+  Progress: botones/confirmaciones propios existentes; iconografía y listas Material aún presentes. No cerrado.
+  Acceptance: iconos, barras, navegación y controles consistentes; retirar tratamientos Material visibles sin perder teclado/semántica.
+  Touches: lib/presentation/; test/.
+- [ ] POL-05 — Personalidad del arte de héroes
+  Progress: expresiones distintas para centinela/invocadora/guardafaroles y poses nuevas compartidas por render. Falta revisar agarres y anatomía de cada arma.
+  Acceptance: expresiones/poses distintas, manos y equipo legibles; mismo arte en selector y combate.
+  Touches: lib/presentation/hero_art.dart; lib/presentation/character_view.dart; test/.
+- [ ] POL-06 — Sectores e iluminación
+  Progress: añadidos hongos al sector blindado, cristales al acechador y puerta al jefe. Pendiente integración fina de iluminación, escala y revisión visual por sector.
+  Acceptance: sectores reconocibles por elementos propios, luz y contacto con el suelo; no solo recolor.
+  Touches: lib/presentation/world_art.dart; lib/presentation/lantern_scene.dart; test/.
+- [ ] POL-07 — Sonido y recompensa
+  Progress: cuatro cues PCM originales nuevos (purchase/level/heal/ice), eventos de compra/habilidad/bloqueo y nivel por ataque manual conectados. Falta escucha real, fanfarria/presentación de victoria y calificación auditiva.
+  Acceptance: efectos propios distintos para golpe, bloqueo, habilidad, compra/nivel/victoria; audio opcional y sin acumulación; presentación legible de recompensa.
+  Touches: assets/audio/; lib/presentation/game_sound.dart; lib/main.dart; lib/presentation/campaign_menu.dart; test/.
+- [ ] POL-08 — Calificación física y playtest
+  Acceptance: teléfono autorizado, recorrido completo, zonas seguras, interacción y rendimiento sostenido; registrar hallazgos reales.
+  Blocker: flutter devices solo detecta Linux; sin teléfono conectado. No equiparar builds con esta aceptación.
+  Touches: docs/IMPLEMENTATION_STATUS.md; docs/RELEASE_CHECKLIST.md.
+
+- [x] RPG-HEROES — Ataques visibles y tres personajes jugables
+  Status: done
+  Scope: selección fuera del combate, diferencias de vida/daño, arte original, animación ofensiva/enemiga, números de daño y migración schema 1→2. Un personaje activo, no equipo simultáneo.
+  Evidence: 42 pruebas aprobadas, flutter analyze limpio, builds web/APK debug y flutter drive Chromium correctos. Widget verifica selección Ascua y daño real. Revisión móvil de Ascua sin cortes graves. Persistencia extremo a extremo de varias acciones rápidas requiere calificación adicional; no se declara cerrada T-002.
+  Touches: lib/domain/content.dart; lib/domain/lantern_run.dart; lib/presentation/hero_art.dart; lib/presentation/lantern_scene.dart; lib/presentation/campaign_menu.dart; lib/presentation/rpg_view.dart; lib/main.dart; test/; docs/RPG_COMBAT.md.
+
 - [ ] T-002 — Guardado local versionado y recuperación
   Status: open
+  Progress: Implementado snapshot, Sembast móvil/web, backup, recuperación y propiedad; pruebas de repositorio y migración pasan; recarga real conserva victoria/oro. Pendiente matriz de almacenamiento denegado/cuota y pestañas independientes con controles de recuperación.
   Sources: docs/GAME_CONCEPT.md#arquitectura-mínima-y-conservación-de-datos; docs/GAME_ROADMAP.md#sistemas-propuestos-y-reglas-de-referencia
-  Scope: serialización validada de estado completo, schema/contentVersion/revisión; repositorio Sembast móvil y Sembast Web/IndexedDB, current/backup transaccionales; cola de escrituras y dueño/revisión en dos tabs; sin ganancias offline. Decisión técnica del plan, paquetes aún sin instalar; revisar compatibilidad/licencias antes de fijarlos.
+  Scope: serialización validada de estado completo, schema/contentVersion/revisión; repositorio Sembast móvil y Sembast Web/IndexedDB, current/backup transaccionales; cola de escrituras y dueño/revisión en dos tabs; sin ganancias offline. Dependencias instaladas y builds web/Android correctos; licencias directas revisadas en docs/ASSETS_AND_LICENSES.md.
   Acceptance: conserva oro, mejora, resistencia, carga, tramo, hitos, pausa y modo; primer inicio no se confunde con corrupción; versión futura/corrupción no borra; error de escritura visible; segunda tab no sobrescribe; flush/checkpoint acotado sin escribir por frame. No prometer persistir una acción antes de su confirmación de guardado.
   Checks: flutter test; flutter analyze; flutter build web; flutter build apk --debug; recargar/reabrir, denegar almacenamiento, simular datos corruptos/futuros y abrir dos tabs. Añadir fixtures y pruebas de repositorio todavía inexistentes.
   Touches: lib/; test/; pubspec.yaml; pubspec.lock; README.md; docs/.
   Dependencies: T-001.
   Ownership: sin asignar; no ejecutando.
-  Next action: añadir test de round-trip y rechazo de snapshot inválido, después adaptadores con transacción y errores visibles.
+  Next action: completar fallo de almacenamiento/cuota, cuarentena exportable y verificación real cross-tab, sin borrar datos.
+  Recovery contract: T-002 entrega bloqueo de sobrescritura, cuarentena y restauración confirmada de backup válido; exportar/importar archivos queda en T-004-3d, menú/reset completo en T-023-9f. Aplicar política current/backup y propietario/generación/revisión de docs/GAME_ROADMAP.md; rechazar colas del propietario anterior y recargar antes de readquirir escritura.
+  Time contract: reiniciar solo fracción de ataque automático e intervalo de entrada actuales; las futuras intenciones/cooldowns/protección requieren duraciones restantes persistidas en sus propias tareas.
 
 ## Next
 
-No hay ampliaciones nuevas aprobadas para ejecución. La siguiente fase propuesta se detalla debajo, no se activa por estar documentada.
+La ampliación está aprobada. Las tareas siguientes tienen implementación parcial o comprobaciones pendientes; conservar abiertas hasta satisfacer su contrato completo.
 
-## Needs decision
+## Trabajo aceptado y calificación pendiente
 
-Las tareas siguientes requieren aprobación del alcance ampliado. Los números, nombres, nivel máximo y módulos son decisiones propuestas del diseñador. La calificación física/publicación además conserva sus puertas externas.
+No se necesita volver a aprobar la ampliación. Se mantiene cada criterio original, con evidencia parcial y siguiente brecha. Pruebas físicas/publicación requieren sus entradas externas.
 
 - [ ] T-004-3d — Persistencia exportable: respaldo, importación y recuperación
   Status: open
-  Readiness: Proposed; aprobación del alcance ampliado pendiente. Área: A. Persistencia.
+  Progress: Exportar/importar y nueva partida con confirmación implementados; falta exportar cuarentena y verificar selectores/round-trip en todas las plataformas.
+  Readiness: Accepted; cierre pendiente de criterios completos. Área: A. Persistencia.
   Sources: docs/GAME_ROADMAP.md#sistemas-propuestos-y-reglas-de-referencia
   Scope: Exportar/importar JSON versionado ≤1 MiB con previsualización y backup; conservar contenido inválido; confirmar nueva partida.
   Acceptance: Exportación y restauración reproducen estado; rechazo de sobredimensión, valores inválidos y versión futura no altera original.
@@ -47,7 +92,8 @@ Las tareas siguientes requieren aprobación del alcance ampliado. Los números, 
 
 - [ ] T-005-a8 — Control de sesión y navegación sin acciones ocultas
   Status: open
-  Readiness: Proposed; aprobación del alcance ampliado pendiente. Área: B. Combate.
+  Progress: Tabs suspenden y bloquean combate; pruebas widget de suspensión/pausa aprobadas; faltan regresiones del gesto de fondo en todas las tabs.
+  Readiness: Accepted; cierre pendiente de criterios completos. Área: B. Combate.
   Sources: docs/GAME_ROADMAP.md#sistemas-propuestos-y-reglas-de-referencia
   Scope: Separar pausa manual, pérdida de actividad y menú; bloquear escena fuera de Combate y restaurar intervalos sin catch-up.
   Acceptance: Abrir Mecha/Ruta no ataca ni recibe daño; regresar no anula pausa manual; misma economía antes/después de suspensión.
@@ -58,7 +104,8 @@ Las tareas siguientes requieren aprobación del alcance ampliado. Los números, 
 
 - [ ] T-006-d5 — Atacar sin exigir machacar botones
   Status: open
-  Readiness: Proposed; aprobación del alcance ampliado pendiente. Área: B. Combate.
+  Progress: Mantener ataque y cancelación implementados; falta cerrar cobertura de pointer cancel, teclado y feedback de cooldown.
+  Readiness: Accepted; cierre pendiente de criterios completos. Área: B. Combate.
   Sources: docs/GAME_ROADMAP.md#sistemas-propuestos-y-reglas-de-referencia
   Scope: Mantener pulsado o equivalente activable, cadencia limitada, feedback de cooldown, cancelación y acceso semántico/teclado.
   Acceptance: Soltar/cancelar/cambiar tab/pausar detiene la repetición; llamarada conserva activación intencional; acción equivalente sin gesto preciso.
@@ -69,7 +116,8 @@ Las tareas siguientes requieren aprobación del alcance ampliado. Los números, 
 
 - [ ] T-007-0d — Catálogo y tabla de balance de encuentros
   Status: open
-  Readiness: Proposed; aprobación del alcance ampliado pendiente. Área: C. Enemigos.
+  Progress: Catálogo Dart, tabla docs/BALANCE.md y migración implementados; prueba de IDs y rangos aprobada. Pendiente revisión cruzada exhaustiva con todos los desbloqueos.
+  Readiness: Accepted; cierre pendiente de criterios completos. Área: C. Enemigos.
   Sources: docs/GAME_ROADMAP.md#sistemas-propuestos-y-reglas-de-referencia
   Scope: Extraer constantes en datos Dart con IDs estables para tres enemigos y jefe; tabla de HP, daños, tiempos, premios y desbloqueos.
   Acceptance: Referencias válidas, IDs únicos, valores acotados; simulación determinista; contenido no depende de Canvas; migración de tramo actual definida.
@@ -80,10 +128,11 @@ Las tareas siguientes requieren aprobación del alcance ampliado. Los números, 
 
 - [ ] T-008-52 — Vida real, intención enemiga y derrota recuperable
   Status: open
-  Readiness: Proposed; aprobación del alcance ampliado pendiente. Área: B. Combate.
+  Progress: Vida, intención, derrota/reintento y duración persistida implementados y testeados; falta recorrido físico/reapertura en cada transición.
+  Readiness: Accepted; cierre pendiente de criterios completos. Área: B. Combate.
   Sources: docs/GAME_ROADMAP.md#sistemas-propuestos-y-reglas-de-referencia
   Scope: Vida del héroe, ataque enemigo anunciado, victoria/derrota excluyentes, recuperación sin perder oro; UI de vida real y reintento.
-  Acceptance: Enemigo inflige daño solo en encuentro activo; derrota detiene combate; reintento no regala recompensa; guardar/restaurar no duplica daño.
+  Acceptance: Enemigo inflige daño solo en encuentro activo; derrota detiene combate; reintento no regala recompensa; guardar/restaurar no duplica daño. Implementar preparación/activo/suspendido/resultado y retorno explícito al farol; menús no permiten equipar durante pelea suspendida. Persistir intención y fase con tiempo activo restante, sin reset por recarga.
   Checks: Gate común y flutter test; recorrido daño → derrota → reintento y cierre/reapertura.
   Touches: lib/; test/
   Dependencies: T-005-a8, T-007-0d.
@@ -91,10 +140,11 @@ Las tareas siguientes requieren aprobación del alcance ampliado. Los números, 
 
 - [ ] T-009-53 — Proteger y conservar carga para decisiones tácticas
   Status: open
-  Readiness: Proposed; aprobación del alcance ampliado pendiente. Área: B. Combate.
+  Progress: Proteger consume una vez, cooldown/ventana persistidos y ayuda accesible implementados; pruebas de borde pasan; falta feedback explícito de bloqueo/fallo.
+  Readiness: Accepted; cierre pendiente de criterios completos. Área: B. Combate.
   Sources: docs/GAME_ROADMAP.md#sistemas-propuestos-y-reglas-de-referencia
   Scope: Proteger con ventana 1 s, cooldown 3 s activos y reducción 75%; señales accesibles; ayuda de ventana ampliada sin penalización.
-  Acceptance: Bloqueo consume protección una vez; cooldown se congela en pausa; llamarada no se gasta automáticamente; feedback claro de bloqueo/fallo.
+  Acceptance: Bloqueo consume protección una vez; cooldown y ventana se congelan en pausa y se restauran como duraciones restantes al reabrir; llamarada no se gasta automáticamente; feedback claro de bloqueo/fallo.
   Checks: Gate común y flutter test; comparar protegido/no protegido y probar borde de ventana con reloj falso.
   Touches: lib/; test/
   Dependencies: T-008-52.
@@ -102,7 +152,8 @@ Las tareas siguientes requieren aprobación del alcance ampliado. Los números, 
 
 - [ ] T-010-da — Tres enemigos con conductas distintas
   Status: open
-  Readiness: Proposed; aprobación del alcance ampliado pendiente. Área: C. Enemigos.
+  Progress: Tres conductas y arte distintos implementados; falta playtest de dos respuestas tácticas y ajuste de coraza.
+  Readiness: Accepted; cierre pendiente de criterios completos. Área: C. Enemigos.
   Sources: docs/GAME_ROADMAP.md#sistemas-propuestos-y-reglas-de-referencia
   Scope: Mota, Acorazado con fase vulnerable y Acechador con golpe anunciado; arte diferenciado y fichas breves; no solo HP mayor.
   Acceptance: Dos respuestas tácticas observables; cambios de enemigo reinician solo estado transitorio; recompensa una vez por victoria.
@@ -113,7 +164,8 @@ Las tareas siguientes requieren aprobación del alcance ampliado. Los números, 
 
 - [ ] T-011-d8 — XP y nivel acotados del guardafaroles
   Status: open
-  Readiness: Proposed; aprobación del alcance ampliado pendiente. Área: D. Progresión.
+  Progress: XP y cinco niveles implementados y guardados; prueba de nivel máximo/round-trip aprobada. Pendiente presentación antes/después y todos los bordes de umbral.
+  Readiness: Accepted; cierre pendiente de criterios completos. Área: D. Progresión.
   Sources: docs/GAME_ROADMAP.md#sistemas-propuestos-y-reglas-de-referencia
   Scope: Cinco niveles propuestos; XP por victoria, vida base y desbloqueos claros; no puntos manuales ni curva infinita.
   Acceptance: Level-up calculado una vez, máximo definido, UI antes/después y migración sin pérdida; XP jamás se cobra de nuevo al recargar.
@@ -124,7 +176,8 @@ Las tareas siguientes requieren aprobación del alcance ampliado. Los números, 
 
 - [ ] T-012-57 — Módulos del farol y dos configuraciones viables
   Status: open
-  Readiness: Proposed; aprobación del alcance ampliado pendiente. Área: D. Progresión.
+  Progress: Cuatro módulos/two slots implementados; bloqueo en pelea y persistencia probados; falta comparación de dos builds y comprobación de estrategia dominante.
+  Readiness: Accepted; cierre pendiente de criterios completos. Área: D. Progresión.
   Sources: docs/GAME_ROADMAP.md#sistemas-propuestos-y-reglas-de-referencia
   Scope: Cuatro módulos por hitos; dos ranuras sin duplicados; comparación y cambio gratis solo fuera de encuentro.
   Acceptance: Se guardan selección/desbloqueos; dos builds sirven a enemigos distintos; no sumar bonificación dos veces; sin rarezas ni inventario aleatorio.
@@ -135,7 +188,8 @@ Las tareas siguientes requieren aprobación del alcance ampliado. Los números, 
 
 - [ ] T-013-20 — Ruta seleccionable y restauración persistente
   Status: open
-  Readiness: Proposed; aprobación del alcance ampliado pendiente. Área: E. Ruta.
+  Progress: Selección/bloqueo de encuentros y faroles implementados; falta regresión de todos los bordes de transición y recarga.
+  Readiness: Accepted; cierre pendiente de criterios completos. Área: E. Ruta.
   Sources: docs/GAME_ROADMAP.md#sistemas-propuestos-y-reglas-de-referencia
   Scope: Tres sectores con encuentros visibles, requisitos y reintentos; progreso existente conservado; restauración cambia detalles del escenario.
   Acceptance: Encuentros bloqueados no se inician; repetir no borra faroles ni hitos; selección y transición no entregan oro.
@@ -146,7 +200,8 @@ Las tareas siguientes requieren aprobación del alcance ampliado. Los números, 
 
 - [ ] T-014-2d — Jefe Guardián del Umbral y cierre de campaña
   Status: open
-  Readiness: Proposed; aprobación del alcance ampliado pendiente. Área: C. Enemigos.
+  Progress: Jefe, segunda fase y cierre implementados; campaña completa pasa simulación; falta recorrido end-to-end real del jefe y recompensa final.
+  Readiness: Accepted; cierre pendiente de criterios completos. Área: C. Enemigos.
   Sources: docs/GAME_ROADMAP.md#sistemas-propuestos-y-reglas-de-referencia
   Scope: Jefe de dos fases reutilizando intención y protección; puerta final; preservar faroles ya ganados y migrar cierre anterior sin penalizar.
   Acceptance: Victoria final requiere encuentro nuevo, nunca retiro de progreso legado; dos fases legibles; derrota/reintento funcional; recompensa final única.
@@ -157,10 +212,11 @@ Las tareas siguientes requieren aprobación del alcance ampliado. Los números, 
 
 - [ ] T-015-72 — Encargos finitos y recompensa por restaurar
   Status: open
-  Readiness: Proposed; aprobación del alcance ampliado pendiente. Área: E. Ruta.
+  Progress: Tres encargos y registro de cobro implementados; doble cobro probado en dominio; falta matriz de importación/backup.
+  Readiness: Accepted; cierre pendiente de criterios completos. Área: E. Ruta.
   Sources: docs/GAME_ROADMAP.md#sistemas-propuestos-y-reglas-de-referencia
   Scope: Tres encargos: primera criatura, primera llamarada y ruta restaurada; cobro explícito, finito e idempotente.
-  Acceptance: Navegar no cobra; objetivo alcanzado explica premio; reiniciar/importar no repite cobro ya persistido.
+  Acceptance: Navegar no cobra; objetivo alcanzado explica premio; saldo y cobro se persisten juntos. Idempotencia dentro del estado restaurado; importar una copia anterior reemplaza toda la partida, no fusiona saldos ni ofrece garantía antirrollback.
   Checks: Gate común y flutter test; probar reclamar dos veces, guardar antes/después y restaurar backup.
   Touches: lib/; test/; docs/
   Dependencies: T-013-20, T-014-2d.
@@ -168,7 +224,8 @@ Las tareas siguientes requieren aprobación del alcance ampliado. Los números, 
 
 - [ ] T-016-9e — Tutorial contextual y objetivo visible
   Status: open
-  Readiness: Proposed; aprobación del alcance ampliado pendiente. Área: F. Presentación.
+  Progress: Ayuda inicial omitible persistida y guía en ajustes implementadas; falta guía contextual progresiva completa y comprensión observada.
+  Readiness: Accepted; cierre pendiente de criterios completos. Área: F. Presentación.
   Sources: docs/GAME_ROADMAP.md#sistemas-propuestos-y-reglas-de-referencia
   Scope: Guía omitible y repetible de ataque, carga, protección, mejora y guardado; objetivo próximo visible sin tapar pelea.
   Acceptance: Partida nueva permite jugar de inmediato; tutorial no concede oro ni altera daño; veterano puede omitir; lector identifica próximo paso.
@@ -179,7 +236,8 @@ Las tareas siguientes requieren aprobación del alcance ampliado. Los números, 
 
 - [ ] T-017-a2 — Ajustes persistentes y accesibilidad completa
   Status: open
-  Readiness: Proposed; aprobación del alcance ampliado pendiente. Área: F. Presentación.
+  Progress: Ajustes persistidos, ayuda de protección y reducción de movimiento; falta foco/lector/Back y matriz real de accesibilidad.
+  Readiness: Accepted; cierre pendiente de criterios completos. Área: F. Presentación.
   Sources: docs/GAME_ROADMAP.md#sistemas-propuestos-y-reglas-de-referencia
   Scope: Ajustes de movimiento, vibración opt-in, audio, repetición accesible y ventana de protección; foco, contraste, labels y navegación Back.
   Acceptance: Ajustes sobreviven reinicio; reducción de movimiento no cambia simulación; sin barreras solo de color/sonido; todas las acciones accesibles.
@@ -190,7 +248,8 @@ Las tareas siguientes requieren aprobación del alcance ampliado. Los números, 
 
 - [ ] T-018-55 — Arte, animación de combate y HUD de amenazas
   Status: open
-  Readiness: Proposed; aprobación del alcance ampliado pendiente. Área: F. Presentación.
+  Progress: Arte diferenciado, escudo, escala y geometría compartida; captura móvil inspeccionada; falta feedback detallado daño/victoria y matriz final de animaciones.
+  Readiness: Accepted; cierre pendiente de criterios completos. Área: F. Presentación.
   Sources: docs/GAME_ROADMAP.md#sistemas-propuestos-y-reglas-de-referencia
   Scope: Diferenciar tres enemigos/jefe; impacto, daño, victoria, protección y restauración; geometría HUD compartida con escena; lista de procedencia/licencias.
   Acceptance: Personajes no se deforman; barras ancladas; efectos acotados, nada tapa controles; sin flicker rápido; licencias por asset.
@@ -201,7 +260,8 @@ Las tareas siguientes requieren aprobación del alcance ampliado. Los números, 
 
 - [ ] T-019-aa — Audio y feedback opcionales sin dependencia de sonido
   Status: open
-  Readiness: Proposed; aprobación del alcance ampliado pendiente. Área: F. Presentación.
+  Progress: Cuatro WAV originales, canal único y sonido opcional implementados; falta bloqueo/farol sonoro, volumen, mute inmediato y prueba auditiva Android.
+  Readiness: Accepted; cierre pendiente de criterios completos. Área: F. Presentación.
   Sources: docs/GAME_ROADMAP.md#sistemas-propuestos-y-reglas-de-referencia
   Scope: Efectos de ataque, impacto, cobro, bloqueo y farol; audio local original/licenciado, volumen y mute; no servicios pagados.
   Acceptance: Mute real y persistente; no solapamientos ilimitados; amenazas comprensibles sin audio; registro de licencia y tamaño.
@@ -212,29 +272,32 @@ Las tareas siguientes requieren aprobación del alcance ampliado. Los números, 
 
 - [ ] T-020-32 — Balance y prueba de diversión con jugadores
   Status: open
-  Readiness: Proposed; aprobación del alcance ampliado pendiente. Área: G. Calidad.
+  Progress: Simulación de campaña completa con tiempo activo, protección/mejoras pasa; no hay playtest humano ni comparación completa de modos/builds.
+  Readiness: Accepted; cierre pendiente de criterios completos. Área: G. Calidad.
   Sources: docs/GAME_ROADMAP.md#sistemas-propuestos-y-reglas-de-referencia
   Scope: Simulación y recorrido de manual, asistido y automático; comparar módulos, tiempos de mejora y cierre; sesión observada sin telemetría remota.
   Acceptance: Sin bloqueo económico; dos decisiones comprendidas; primera meta alcanzada sin intervención; registrar problemas reales y ajustar, no prometer retención.
   Checks: Gate común y flutter test; simulación con reloj falso y hoja de playtest con tiempos/observaciones reales.
   Touches: lib/domain/; test/; docs/
-  Dependencies: T-015-72, T-016-9e, T-019-aa.
+  Dependencies: T-015-72, T-016-9e, T-019-aa, T-023-9f.
   Ownership: sin asignar; no ejecutando.
 
 - [ ] T-021-2c — Regresión integral, migraciones y errores de almacenamiento
   Status: open
-  Readiness: Proposed; aprobación del alcance ampliado pendiente. Área: G. Calidad.
+  Progress: 35 pruebas unit/widget pasan y flutter drive integration pasa en Chromium; falta matriz completa de disco/cuota/cross-tab y recorrido integral del final.
+  Readiness: Accepted; cierre pendiente de criterios completos. Área: G. Calidad.
   Sources: docs/GAME_ROADMAP.md#sistemas-propuestos-y-reglas-de-referencia
   Scope: Integración partida nueva → nivel → derrota → jefe → cierre → reinicio; disco/cuota, dos tabs, versiones futuras y migraciones.
   Acceptance: Sin pérdida silenciosa, duplicación, softlock ni dependencia del framerate; datos previos conservados y recuperación comprobada.
-  Checks: Gate común y flutter test; flutter test integration_test; flutter build web; flutter build apk --debug. Crear fixtures/integration_test aún inexistentes.
+  Checks: Gate común y flutter test; CHROME_EXECUTABLE=/usr/sbin/chromium flutter drive --driver=test_driver/integration_test.dart --target=integration_test/playthrough_test.dart -d web-server --browser-name=chrome --headless --web-port=8181; flutter build web; flutter build apk --debug. Runner requiere chromedriver en puerto 4444; flutter test -d web-server no soporta integración.
   Touches: test/; integration_test/; lib/; pubspec.yaml; docs/
-  Dependencies: T-004-3d, T-015-72, T-017-a2.
+  Dependencies: T-004-3d, T-015-72, T-017-a2, T-023-9f.
   Ownership: sin asignar; no ejecutando.
 
 - [ ] T-022-4f — Calificación Android real y rendimiento
   Status: open
-  Readiness: Proposed; aprobación del alcance ampliado pendiente. Área: G. Calidad.
+  Progress: APK profile compilado. Falta dispositivo Android: flutter devices solo Linux; no FPS/memoria/calor físicos medidos.
+  Readiness: Accepted; cierre pendiente de criterios completos. Área: G. Calidad.
   Sources: docs/GAME_ROADMAP.md#sistemas-propuestos-y-reglas-de-referencia
   Scope: Build profile, sesión 10 min en dispositivo identificado, memoria, frames, calor, gestos, llamadas y reinicio de proceso; informe de defectos.
   Acceptance: Recorrido completo sin errores críticos; medir objetivo de fluidez y memoria estable, registrar hardware/resultados, corregir hallazgos; no sustituir por web.
@@ -245,7 +308,8 @@ Las tareas siguientes requieren aprobación del alcance ampliado. Los números, 
 
 - [ ] T-023-9f — Cierre local: menú inicial, final y nueva partida segura
   Status: open
-  Readiness: Proposed; aprobación del alcance ampliado pendiente. Área: E. Ruta.
+  Progress: Menú Continuar, final, práctica, créditos y nueva partida respaldada implementados; falta recorrido confirmado de reset/recuperación y teclado.
+  Readiness: Accepted; cierre pendiente de criterios completos. Área: E. Ruta.
   Sources: docs/GAME_ROADMAP.md#sistemas-propuestos-y-reglas-de-referencia
   Scope: Continuar/partida nueva/créditos, cierre rejugable, confirmación y backup antes de reset, resumen de contenido terminado.
   Acceptance: Continuar restaura estado; no reset accidental; sin promesas de contenido inexistente; cada opción funciona con teclado/tacto.
@@ -256,7 +320,8 @@ Las tareas siguientes requieren aprobación del alcance ampliado. Los números, 
 
 - [ ] T-024-e3 — Paquete y checklist de publicación opcional
   Status: open
-  Readiness: Proposed; aprobación del alcance ampliado pendiente. Área: G. Calidad.
+  Progress: Checklist preparado en docs/RELEASE_CHECKLIST.md; marca/identificador/firma/privacidad/capturas finales pendientes; no publicación autorizada.
+  Readiness: Accepted; cierre pendiente de criterios completos. Área: G. Calidad.
   Sources: docs/GAME_ROADMAP.md#sistemas-propuestos-y-reglas-de-referencia
   Scope: Preparar revisión de nombre, icono, identificador definitivo, licencias, privacidad/datos, capturas reales, firma/versionado y ficha; no publicar.
   Acceptance: Checklist distingue cumplido/pendiente; no claves en repo ni claims falsos; autoridad explícita para cuenta, firma, pagos y publicación.
@@ -267,7 +332,8 @@ Las tareas siguientes requieren aprobación del alcance ampliado. Los números, 
 
 - [ ] T-025-45 — Calificación iOS separada
   Status: open
-  Readiness: Proposed; aprobación del alcance ampliado pendiente. Área: G. Calidad.
+  Progress: Bloqueo externo: Linux sin macOS/Xcode ni iPhone. No compilado ni probado iOS.
+  Readiness: Accepted; cierre pendiente de criterios completos. Área: G. Calidad.
   Sources: docs/GAME_ROADMAP.md#sistemas-propuestos-y-reglas-de-referencia
   Scope: Revisar deployment target, layout, guardado/ciclo de vida, audio y pruebas reales iOS; no bloquea Android ni incluye publicación.
   Acceptance: Build y recorrido real registrados en macOS/Xcode y dispositivo; no inferir paridad desde Android.

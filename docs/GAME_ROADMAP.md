@@ -2,7 +2,9 @@
 
 ## Autoridad y alcance
 
-Status: Proposed
+Status: Accepted
+
+El usuario autorizó implementar el plan con «ok has todo». Estado real y límites: `IMPLEMENTATION_STATUS.md`. La publicación, cuentas, claves y pagos siguen requiriendo autoridad separada; pruebas físicas e iOS dependen de equipo disponible. Las descripciones de ausencia siguientes son la línea base de investigación, no el estado actual.
 
 El usuario pidió investigar y documentar en TODO.md todo el trabajo para que el juego funcione mejor, sea más RPG y tenga variedad. Esta entrega es planificación y documentación; no implementa sistemas ni inicia ejecución autónoma. Mantiene el proyecto Flutter + Flame + Dart y la identidad del guardafaroles. Las ampliaciones y sus cifras son decisiones propuestas del diseñador, no elecciones previas del usuario. Guardado y preservación del prototipo actual sí son alcance ya aceptado.
 
@@ -67,9 +69,17 @@ Conservar el ID T-002. Dominio serializable con `schemaVersion`, `contentVersion
 
 Adaptadores Sembast/archivo en móvil y Sembast Web/IndexedDB, con imports condicionales. Seleccionar almacenamiento en el arranque, no desde el dominio. Primera apertura sin dato permite partida nueva; dato inválido o versión futura no.
 
-Guardar current y backup validado en una transacción, con cola de escrituras serializada. Guardar acciones relevantes y checkpoint periódico limitado; no prometer que un cierre forzado puede salvar lo que el sistema no alcanzó a escribir. Mostrar estado de escritura/error y conservar original. Migrar en memoria, validar y solo entonces escribir. Ofrecer restaurar backup o exportar contenido inválido; crear nueva partida requiere confirmación que preserve una copia.
+Guardar current y backup validado en una transacción, con cola de escrituras serializada. Guardar acciones relevantes y checkpoint periódico limitado; no prometer que un cierre forzado puede salvar lo que el sistema no alcanzó a escribir. Mostrar estado de escritura/error y conservar original. Migrar en memoria, validar y solo entonces escribir.
+
+Frontera de entrega: T-002 incluye recuperación mínima dentro de la app: bloquear sobrescritura de datos ilegibles/futuros, conservarlos en cuarentena y ofrecer restaurar un backup válido mediante confirmación. Si no hay copia válida, mostrar error conservando datos, sin iniciar otra partida silenciosamente. T-004 añade exportación/importación de archivos y exportación de la cuarentena. El menú completo y nueva partida confirmada pertenecen a T-023; hasta entonces no ofrecer reset destructivo.
+
+Política de copias: cada escritura normal valida primero el current existente; si es válido, pasa a backup en la misma transacción que instala el nuevo current. Si current no existe, la primera escritura no inventa un backup. Si current es inválido/futuro, se bloquean escrituras normales y nunca se rota esa entrada encima del backup válido. Si current es válido y backup no, conservar la copia inválida en cuarentena y permitir continuar desde current. Restaurar backup requiere confirmar el posible retroceso; preservar current en cuarentena, instalar la copia validada con revisión nueva y conservar el backup hasta la siguiente escritura válida. No sustituir una copia recuperable con un dato inválido.
 
 En web: una sesión escritora por partida mediante propietario/revisión y expiración acotada. Una segunda pestaña se vuelve solo lectura e informa qué ocurre; no sobrescribir progreso obsoleto. Transacciones idempotentes: no entregar recompensa/haptic dentro de callback que pueda repetirse.[9]
+
+Cada escritura comprueba dentro de la transacción propietario, generación de concesión y revisión esperada; cualquier snapshot encolado con generación antigua se rechaza aunque su pestaña recupere actividad. Heartbeat propuesto cada cinco segundos y expiración a treinta segundos sin renovación. La expiración solo permite solicitar una concesión nueva, no guardar estado viejo: releer current, validarlo, descartar cola anterior y adoptar ese estado antes de habilitar input. Ante salto de reloj o conflicto, pasar a solo lectura y renovar explícitamente; un token de generación evita que dos propietarios escriban aunque el reloj expire prematuramente. Los tiempos son elección técnica revisable en pruebas, no garantía de ejecución en background.
+
+Temporizadores por tipo: T-002 reinicia solo intervalos de entrada y fracción del pulso automático del prototipo; no produce ataques ausentes. Al añadir combate mutuo, T-008/T-009 persisten los milisegundos activos restantes de intención enemiga, cooldown y protección, junto con fase y dueño del encuentro. Reabrir continúa esos valores sin avance offline ni recuperación gratuita. No persistir timestamps monotónicos del proceso; serializar duraciones restantes acotadas y normalizar una única vez al guardar.
 
 Exportar un archivo versionado; importar con límite de tamaño propuesto de 1 MiB, validación estructural y previsualización. Respaldar antes de reemplazar. Esto no es nube, cifrado antitrampas ni sincronización entre dispositivos.
 
@@ -83,6 +93,7 @@ Esta ampliación cambia el límite inicial de héroe invulnerable; está propues
 - Antes de un ataque enemigo, icono, texto y señal visual anuncian intención. No depender de sonido ni color.
 - Derrota: detener encuentro, conservar oro/mejoras e hitos, ofrecer reintento a vida completa o volver al farol. Reiniciar solo el enemigo del encuentro; sin pérdida de recursos, energía de pago o espera obligatoria.
 - Cambiar de Combate a otro menú suspende el encuentro; volver continúa sin saltos de reloj. Pausa manual tiene precedencia y no se desactiva al cerrar un menú. No atacar tocando el fondo desde Mecha/Ruta.
+- Estados de encuentro introducidos en T-008: preparación, activo, suspendido y resultado. Abrir una tab solo suspende: no convierte una pelea en preparación ni habilita equipamiento. Desde preparación se pueden cambiar módulos; victoria/derrota conduce a resultado y una acción explícita lleva al farol/preparación. Abandonar requiere confirmación, no otorga recompensa, conserva oro/hitos y reinicia solo el enemigo y vida del encuentro. T-013 añade la selección visual de ruta sobre este contrato; T-012 lo reutiliza, por lo que no necesita esperar al mapa para ofrecer un lugar donde equipar.
 - Entrada opcional de mantener pulsado repite ataques a cadencia limitada, se cancela con pointer cancel, cambio de tab, pausa y pérdida de actividad. Teclado y lector de pantalla mantienen botones equivalentes. Nunca recompensar en función del framerate.
 
 ### C. Enemigos y jefe
@@ -106,7 +117,7 @@ No añadir economía infinita. Poner límites documentados a mejoras, nivel, oro
 
 Tres sectores conectados con encuentros visibles y bloqueos explicados. Elegir encuentro ya desbloqueado para practicar o reunir oro; no mapa navegable ni pathfinding. No reiniciar sectores restaurados al repetirlos.
 
-Encargos finitos: disipar una primera criatura, usar una llamarada y restaurar la ruta. Recompensas únicas persistidas, con registro de cobro que no se duplica por importar/reabrir. Sin cobros ocultos al navegar tabs.
+Encargos finitos: disipar una primera criatura, usar una llamarada y restaurar la ruta. Recompensas y registro de cobro se guardan juntos; reabrir, repetir transacción o importar el mismo estado no vuelve a conceder un cobro ya presente en ese estado. Sin cobros ocultos al navegar tabs. Importar/restaurar una copia antigua reemplaza toda la partida, incluidos oro y cobros: es un rollback explícito con previsualización, no una fusión. Un encargo pendiente en esa copia podrá cobrarse de nuevo dentro de esa línea de progreso, pero no sumarse al saldo posterior descartado. Sin servidor no se promete impedir manipulación ni retrocesos elegidos por el usuario.
 
 Tras el jefe: escena restaurada, breve texto de cierre y resumen de hitos; continuar practicando o volver a la ruta. Nueva partida solo desde ajustes con confirmación y respaldo. El final tiene su propia prueba end-to-end.
 
@@ -129,6 +140,8 @@ Matriz móvil: pantalla estrecha, texto al 200%, insets, cambio de orientación 
 Objetivos de laboratorio propuestos, no mediciones: sesión perfilada de diez minutos sin crecimiento continuo de memoria y fluidez estable al objetivo de 60 FPS en el dispositivo de referencia que se registre; aceptar 30 FPS como modo de ahorro si se decide e identifica. Medir con build profile, no inferir FPS de un debug test. Registrar memoria, frames lentos, calentamiento y suspensión; no inventar límites absolutos de RAM sin equipo de referencia.
 
 Android local es la primera plataforma a calificar. iOS tiene tarea propia con requisito macOS/Xcode y dispositivo; no bloquea la versión Android. Store/firmas/privacidad tienen checklist separado y requieren autoridad para cuentas, claves, pagos y publicación. No ejecutar esos trámites por crear el TODO.
+
+El menú inicial, el final y el reset seguro de T-023 se integran antes de la regresión integral T-021 y del balance de cierre T-020. La calificación Android T-022 corresponde al conjunto resultante, no a una versión anterior sin esos flujos. Cualquier corrección posterior que afecte guardado, navegación o combate invalida y obliga a repetir las comprobaciones afectadas antes de empaquetar.
 
 ## Alternativas y control de alcance
 

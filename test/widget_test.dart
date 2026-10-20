@@ -12,7 +12,7 @@ void main() {
       tester.view.devicePixelRatio = 1;
       addTearDown(tester.view.resetPhysicalSize);
       addTearDown(tester.view.resetDevicePixelRatio);
-      await tester.pumpWidget(const MyApp());
+      await tester.pumpWidget(MyApp(run: LanternRun(now: () => Duration.zero)));
       await tester.pump();
       final scene = find.byWidgetPredicate((w) => w is GameWidget);
       expect(tester.getSize(scene), const Size(390, 844));

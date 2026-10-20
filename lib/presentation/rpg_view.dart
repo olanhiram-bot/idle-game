@@ -1,10 +1,18 @@
 import 'dart:math' as math;
 
 import 'package:flame/game.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart'
+    hide FilledButton, OutlinedButton, TextButton;
+
+import 'game_controls.dart';
 
 import '../domain/lantern_run.dart';
 import 'lantern_scene.dart';
+import 'campaign_menu.dart';
+import 'arena_layout.dart';
+import 'game_theme.dart';
+import 'game_badge.dart';
+import 'character_view.dart';
 
 class RpgView extends StatelessWidget {
   const RpgView({
@@ -19,6 +27,10 @@ class RpgView extends StatelessWidget {
     required this.onPause,
     required this.onAuto,
     required this.message,
+    this.onAct,
+    this.onSettings,
+    this.onHoldStart,
+    this.onHoldEnd,
   });
   final LanternRun run;
   final LanternScene scene;
@@ -26,6 +38,8 @@ class RpgView extends StatelessWidget {
   final ValueChanged<int> onTab;
   final VoidCallback onAttack, onFlare, onUpgrade, onPause, onAuto;
   final String message;
+  final void Function(VoidCallback)? onAct;
+  final VoidCallback? onSettings, onHoldStart, onHoldEnd;
 
   @override
   Widget build(BuildContext context) {
@@ -36,16 +50,25 @@ class RpgView extends StatelessWidget {
         builder: (context, constraints) {
           final height = constraints.maxHeight;
           final dockHeight = math.min(
-            height * (height < 500 ? .60 : .38),
-            scale > 1.4 ? 340.0 : 288.0,
+            height * (tab == 0 ? (height < 500 ? .60 : .48) : .66),
+            tab != 0
+                ? 600.0
+                : scale > 1.4
+                ? 340.0
+                : 390.0,
           );
-          final arenaTop = insets.top + (scale > 1.4 ? 112.0 : 84.0);
+          final arenaTop = insets.top + (scale > 1.4 ? 160.0 : 126.0);
           final arenaBottom = height - dockHeight - insets.bottom;
           scene.arenaTop = arenaTop;
           scene.arenaBottom = math.max(arenaTop + 36, arenaBottom);
-          final arenaHeight = scene.arenaBottom - arenaTop;
-          final zoom = math.min(constraints.maxWidth / 560, arenaHeight / 290);
-          final sceneLeft = (constraints.maxWidth - 600 * zoom) / 2;
+          final layout = ArenaLayout(
+            width: constraints.maxWidth,
+            top: arenaTop,
+            bottom: scene.arenaBottom,
+          );
+          final arenaHeight = layout.height;
+          final zoom = layout.zoom;
+          final sceneLeft = layout.left;
           final meterWidth = math.min(180.0, constraints.maxWidth * .42);
           final meterTop = math.max(
             arenaTop,
@@ -75,6 +98,13 @@ class RpgView extends StatelessWidget {
                     ),
                     child: Row(
                       children: [
+                        SizedBox(
+                          key: const Key('hud-hero-portrait'),
+                          width: 42,
+                          height: 48,
+                          child: CustomPaint(painter: HeroPortrait(run.heroId)),
+                        ),
+                        const SizedBox(width: 6),
                         Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -84,12 +114,13 @@ class RpgView extends StatelessWidget {
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 16,
+                                  letterSpacing: .3,
                                 ),
                               ),
                               Text(
                                 run.completed
                                     ? 'Ruta restaurada · 3/3'
-                                    : 'Galería · Tramo ${run.stage + 1}/3',
+                                    : '${run.hero.name} · Nivel ${run.level}',
                                 style: const TextStyle(
                                   fontSize: 12,
                                   color: Color(0xFFCCD4D9),
@@ -98,11 +129,32 @@ class RpgView extends StatelessWidget {
                             ],
                           ),
                         ),
-                        Text(
-                          '${run.gold} oro',
-                          style: const TextStyle(
-                            color: Color(0xFFFFD18A),
-                            fontWeight: FontWeight.bold,
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 10,
+                            vertical: 8,
+                          ),
+                          decoration: BoxDecoration(
+                            color: GameStyle.ink,
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              const Icon(
+                                Icons.monetization_on_rounded,
+                                size: 19,
+                                color: GameStyle.gold,
+                              ),
+                              const SizedBox(width: 5),
+                              Text(
+                                '${run.gold} oro',
+                                style: const TextStyle(
+                                  color: GameStyle.gold,
+                                  fontWeight: FontWeight.w800,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                         IconButton(
@@ -114,6 +166,35 @@ class RpgView extends StatelessWidget {
                         ),
                       ],
                     ),
+                  ),
+                ),
+              ),
+              Positioned(
+                top: insets.top + 88,
+                left: 20,
+                right: 20,
+                child: IgnorePointer(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'GALERÍA DE LOS ECOS',
+                        style: TextStyle(
+                          fontSize: 12,
+                          letterSpacing: 2,
+                          fontWeight: FontWeight.w900,
+                          color: GameStyle.gold,
+                          shadows: [Shadow(color: Colors.black, blurRadius: 6)],
+                        ),
+                      ),
+                      Text(
+                        'Tramo ${run.stage + 1}/3 · ${run.litLanterns}/3 faroles restaurados',
+                        style: const TextStyle(
+                          fontSize: 11,
+                          color: GameStyle.muted,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),
@@ -141,8 +222,12 @@ class RpgView extends StatelessWidget {
                   width: meterWidth,
                   child: _meter(
                     key: const Key('hero-charge'),
-                    label: 'Carga · ${run.charge}/4',
-                    value: run.charge / 4,
+                    label: run.campaign
+                        ? 'Vida ${run.heroHealth}/${run.maxHeroHealth} · Carga ${run.charge}/${run.chargeTarget}'
+                        : 'Carga · ${run.charge}/4',
+                    value: run.campaign
+                        ? run.heroHealth / run.maxHeroHealth
+                        : run.charge / 4,
                     color: const Color(0xFFFFD18A),
                   ),
                 ),
@@ -156,8 +241,12 @@ class RpgView extends StatelessWidget {
                       Expanded(
                         child: _meter(
                           key: const Key('hero-charge'),
-                          label: 'Carga ${run.charge}/4',
-                          value: run.charge / 4,
+                          label: run.campaign
+                              ? 'Vida ${run.heroHealth}/${run.maxHeroHealth}'
+                              : 'Carga ${run.charge}/4',
+                          value: run.campaign
+                              ? run.heroHealth / run.maxHeroHealth
+                              : run.charge / 4,
                           color: const Color(0xFFFFD18A),
                         ),
                       ),
@@ -179,8 +268,24 @@ class RpgView extends StatelessWidget {
                   key: const Key('command-panel'),
                   height: dockHeight + insets.bottom,
                   decoration: const BoxDecoration(
-                    color: Color(0xF5111925),
-                    border: Border(top: BorderSide(color: Color(0xFF8D795B))),
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [Color(0xFF303E60), Color(0xFF101C32)],
+                    ),
+                    borderRadius: BorderRadius.vertical(
+                      top: Radius.circular(26),
+                    ),
+                    border: Border(
+                      top: BorderSide(color: GameStyle.edge, width: 2),
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Color(0x60000000),
+                        blurRadius: 20,
+                        offset: Offset(0, -5),
+                      ),
+                    ],
                   ),
                   child: SafeArea(
                     top: false,
@@ -196,14 +301,34 @@ class RpgView extends StatelessWidget {
                                 constraints: const BoxConstraints(
                                   maxWidth: 720,
                                 ),
-                                child: _menu(context),
+                                child: Column(
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.stretch,
+                                  children: [
+                                    if (run.campaign &&
+                                        message.contains('Error de guardado'))
+                                      Text(
+                                        message,
+                                        style: const TextStyle(
+                                          color: Color(0xFFFFB4AB),
+                                        ),
+                                      ),
+                                    _menu(context),
+                                  ],
+                                ),
                               ),
                             ),
                           ),
                         ),
-                        SizedBox(
+                        Container(
                           key: const Key('bottom-tabs'),
                           height: scale > 1.4 ? 100 : 64,
+                          decoration: const BoxDecoration(
+                            color: GameStyle.ink,
+                            border: Border(
+                              top: BorderSide(color: GameStyle.edge),
+                            ),
+                          ),
                           child: Row(
                             children: [
                               _tab(0, 'Combate', Icons.flash_on),
@@ -243,18 +368,16 @@ class RpgView extends StatelessWidget {
     child: Semantics(
       selected: tab == index,
       child: Material(
-        color: tab == index ? const Color(0xFF2D302F) : Colors.transparent,
+        color: tab == index ? const Color(0xFF354569) : Colors.transparent,
         child: InkWell(
           onTap: () => onTab(index),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(
-                icon,
-                size: 22,
-                color: tab == index
-                    ? const Color(0xFFFFD18A)
-                    : const Color(0xFFB4C0CC),
+              GameBadge(
+                icon: icon,
+                size: 30,
+                color: tab == index ? GameStyle.gold : GameStyle.edge,
               ),
               Text(
                 label,
@@ -273,6 +396,19 @@ class RpgView extends StatelessWidget {
   );
 
   Widget _menu(BuildContext context) {
+    if (run.campaign) {
+      return CampaignMenu(
+        run: run,
+        tab: tab,
+        act: onAct!,
+        attack: onAttack,
+        flare: onFlare,
+        settings: onSettings!,
+        holdStart: onHoldStart!,
+        holdEnd: onHoldEnd!,
+        prepare: () => onTab(1),
+      );
+    }
     if (tab == 1) {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -399,9 +535,12 @@ class RpgView extends StatelessWidget {
 
   Widget _plate(Widget child) => DecoratedBox(
     decoration: BoxDecoration(
-      color: const Color(0xEE111A27),
-      borderRadius: BorderRadius.circular(8),
-      border: Border.all(color: const Color(0xFF4C5360)),
+      color: const Color(0xF2112E40),
+      borderRadius: BorderRadius.circular(18),
+      border: Border.all(color: GameStyle.edge),
+      boxShadow: const [
+        BoxShadow(color: Colors.black38, offset: Offset(0, 4), blurRadius: 12),
+      ],
     ),
     child: child,
   );
@@ -415,9 +554,9 @@ class RpgView extends StatelessWidget {
     key: key,
     padding: const EdgeInsets.all(6),
     decoration: BoxDecoration(
-      color: const Color(0xEE111A27),
-      borderRadius: BorderRadius.circular(6),
-      border: Border.all(color: const Color(0xFF626271)),
+      color: const Color(0xEE091B28),
+      borderRadius: BorderRadius.circular(10),
+      border: Border.all(color: GameStyle.edge),
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -430,11 +569,32 @@ class RpgView extends StatelessWidget {
         const SizedBox(height: 4),
         LinearProgressIndicator(
           value: value,
-          minHeight: 6,
+          minHeight: 8,
+          borderRadius: BorderRadius.circular(4),
           color: color,
           backgroundColor: const Color(0xFF34333C),
           semanticsLabel: label,
         ),
+        if (key == const Key('hero-charge') && run.campaign) ...[
+          const SizedBox(height: 5),
+          Row(
+            children: [
+              for (var i = 0; i < run.chargeTarget; i++)
+                Expanded(
+                  child: Container(
+                    height: 4,
+                    margin: const EdgeInsets.symmetric(horizontal: 2),
+                    decoration: BoxDecoration(
+                      color: i < run.charge
+                          ? GameStyle.teal
+                          : const Color(0xFF365467),
+                      borderRadius: BorderRadius.circular(2),
+                    ),
+                  ),
+                ),
+            ],
+          ),
+        ],
       ],
     ),
   );
