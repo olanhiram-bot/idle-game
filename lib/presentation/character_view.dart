@@ -8,6 +8,7 @@ import '../domain/lantern_run.dart';
 import 'hero_art.dart';
 import 'game_theme.dart';
 import 'game_badge.dart';
+import 'kenney_sprites.dart';
 
 class CharacterView extends StatefulWidget {
   const CharacterView({super.key, required this.run});
@@ -217,7 +218,12 @@ class HeroPortrait extends CustomPainter {
       size.height / 2 - 216 * scale,
     );
     canvas.scale(scale);
-    HeroArt.paint(canvas, id, 0);
+    final sprite = KenneySprites.hero(id, 0);
+    if (sprite != null && KenneySprites.image(sprite) != null) {
+      KenneySprites.paint(canvas, sprite, Rect.fromLTWH(111, 80, 98, 204));
+    } else {
+      HeroArt.paint(canvas, id, 0);
+    }
     canvas.restore();
   }
 

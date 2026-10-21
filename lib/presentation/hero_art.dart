@@ -1,5 +1,7 @@
 import 'dart:ui';
 
+import 'kenney_sprites.dart';
+
 /// Ilustración original compartida por retrato y combate. Pies en y=284.
 abstract final class HeroArt {
   static void paint(
@@ -10,6 +12,25 @@ abstract final class HeroArt {
     double hurt = 0,
     bool defeated = false,
   }) {
+    final kenneyPose = defeated
+        ? 3
+        : hurt > 0
+        ? 2
+        : action > 0
+        ? 1
+        : 0;
+    final sprite = KenneySprites.hero(id, kenneyPose);
+    if (sprite != null && KenneySprites.image(sprite) != null) {
+      _paintKenney(
+        canvas,
+        sprite,
+        action: action,
+        hurt: hurt,
+        defeated: defeated,
+        defending: defending,
+      );
+      return;
+    }
     final mage = id == 'ascua';
     final knight = id == 'bastion';
     final a = action.clamp(0.0, 1.0);
@@ -277,6 +298,35 @@ abstract final class HeroArt {
       9,
     );
     art.line(const Offset(139, 221), const Offset(133, 238), 0xFFC78D56, 7);
+    canvas.restore();
+  }
+
+  static void _paintKenney(
+    Canvas canvas,
+    String sprite, {
+    required double action,
+    required double hurt,
+    required bool defeated,
+    required bool defending,
+  }) {
+    canvas.save();
+    canvas.translate(160, 282);
+    if (defeated) canvas.rotate(-.42);
+    if (defending) canvas.scale(.94, .91);
+    canvas.rotate(-hurt.clamp(0, 1) * .12);
+    canvas.translate(action.clamp(0, 1) * 16 - 160, -282);
+    canvas.drawOval(
+      const Rect.fromLTWH(111, 272, 98, 13),
+      Paint()..color = const Color(0x77030C17),
+    );
+    // Kenney's actors face the viewer, so use their intentional action poses
+    // instead of pretending they share the original sword/staff geometry.
+    KenneySprites.paint(
+      canvas,
+      sprite,
+      const Rect.fromLTWH(105, 70, 110, 214),
+      opacity: hurt > 0 ? .86 : 1,
+    );
     canvas.restore();
   }
 }

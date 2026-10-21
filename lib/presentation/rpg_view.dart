@@ -13,6 +13,7 @@ import 'arena_layout.dart';
 import 'game_theme.dart';
 import 'game_badge.dart';
 import 'character_view.dart';
+import 'kenney_asset_gallery_view.dart';
 
 class RpgView extends StatelessWidget {
   const RpgView({
@@ -98,11 +99,24 @@ class RpgView extends StatelessWidget {
                     ),
                     child: Row(
                       children: [
-                        SizedBox(
-                          key: const Key('hud-hero-portrait'),
-                          width: 42,
-                          height: 48,
-                          child: CustomPaint(painter: HeroPortrait(run.heroId)),
+                        Tooltip(
+                          message: 'Mantén pulsado para ver los assets usados',
+                          child: GestureDetector(
+                            key: const Key('kenney-assets-gallery'),
+                            onLongPress: () => Navigator.of(context).push(
+                              MaterialPageRoute<void>(
+                                builder: (_) => const KenneyAssetGalleryView(),
+                              ),
+                            ),
+                            child: SizedBox(
+                              key: const Key('hud-hero-portrait'),
+                              width: 42,
+                              height: 48,
+                              child: CustomPaint(
+                                painter: HeroPortrait(run.heroId),
+                              ),
+                            ),
+                          ),
                         ),
                         const SizedBox(width: 6),
                         Expanded(

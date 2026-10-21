@@ -7,7 +7,7 @@ import 'game_controls.dart';
 import 'game_theme.dart';
 import 'kenney_asset_gallery.dart';
 
-/// Isolated review screen; does not alter combat content or saved progress.
+/// Review screen for selected CC0 sprites, reachable by holding the HUD portrait.
 class KenneyAssetGalleryView extends StatelessWidget {
   const KenneyAssetGalleryView({super.key});
 
@@ -28,8 +28,8 @@ class KenneyAssetGalleryView extends StatelessWidget {
           const Padding(
             padding: EdgeInsets.fromLTRB(16, 12, 16, 6),
             child: Text(
-              'Kenney · Toon Characters · CC0\n'
-              'Previsualización de candidatas. No cambia los personajes del juego.',
+              'Kenney · Toon Characters + RPG Base · CC0\n'
+              'Guardianes y suelo de piedra ya aparecen en combate.',
               textAlign: TextAlign.center,
             ),
           ),

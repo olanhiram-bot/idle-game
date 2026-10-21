@@ -1,12 +1,12 @@
 import 'dart:convert';
 import 'dart:io';
-import 'dart:typed_data';
 
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:idle_game/presentation/kenney_asset_gallery.dart';
+import 'package:idle_game/presentation/kenney_sprites.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -19,7 +19,7 @@ void main() {
     const assetChannel = MethodChannel('flutter/assets');
     binaryMessenger.setMockMessageHandler(assetChannel.name, (message) async {
       final name = utf8.decode(message!.buffer.asUint8List());
-      if (name == 'AssetManifest.bin') {
+      if (name.endsWith('AssetManifest.bin')) {
         return const StandardMethodCodec().encodeSuccessEnvelope(
           Uint8List.fromList(<int>[]),
         );
@@ -30,9 +30,12 @@ void main() {
     final gallery = KenneyAssetGallery();
     await tester.pumpWidget(MaterialApp(home: GameWidget(game: gallery)));
     await tester.pumpAndSettle();
+    await gallery.assetsLoaded;
 
-    expect(gallery.imagesLoaded, 8);
+    expect(gallery.imagesLoaded, 13);
+    expect(KenneySprites.imagesLoaded, 0);
     await tester.pumpWidget(const SizedBox.shrink());
+    KenneySprites.clear();
     binaryMessenger.setMockMessageHandler(assetChannel.name, null);
   });
 }

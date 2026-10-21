@@ -2,17 +2,17 @@ import 'dart:ui';
 
 import 'package:flame/cache.dart';
 import 'package:flame/game.dart';
-import 'package:flutter/services.dart';
 
-/// Optional artist-facing preview of the downloaded Kenney pilot sprites.
-/// Gameplay keeps its project-owned vector art unless the owner approves a
-/// consistent style switch; this gallery makes the alternatives reviewable.
+import 'kenney_sprites.dart';
+
+/// Artist-facing preview of selected CC0 sprites, also opened from combat HUD.
 class KenneyAssetGallery extends FlameGame {
   KenneyAssetGallery();
 
   final Map<String, Image> _sprites = {};
   late final Images _assetImages = Images(prefix: 'assets/third_party/kenney/');
   int get imagesLoaded => _sprites.length;
+  Future<void> get assetsLoaded => loaded;
 
   static const _assets = <(String, String)>[
     (
@@ -47,8 +47,18 @@ class KenneyAssetGallery extends FlameGame {
       'ZOMBI · CAÍDA',
       'toon-characters/selected/Zombie/PNG/Poses HD/character_zombie_down.png',
     ),
+    (
+      'HEROÍNA · DAÑO',
+      'toon-characters/selected/Female adventurer/PNG/Poses HD/character_femaleAdventurer_hurt.png',
+    ),
+    (
+      'HEROÍNA · DERROTA',
+      'toon-characters/selected/Female adventurer/PNG/Poses HD/character_femaleAdventurer_down.png',
+    ),
+    ('SUELO · PIEDRA 128', 'rpg-base/selected/rpgTile128.png'),
+    ('SUELO · PIEDRA 132', 'rpg-base/selected/rpgTile132.png'),
+    ('SUELO · PIEDRA 134', 'rpg-base/selected/rpgTile134.png'),
   ];
-
   @override
   Future<void> onLoad() async {
     for (final (label, asset) in _assets) {
@@ -62,13 +72,15 @@ class KenneyAssetGallery extends FlameGame {
   @override
   void render(Canvas canvas) {
     super.render(canvas);
-    final cellWidth = size.x / 4;
-    final cellHeight = size.y / 2;
+    final columns = size.x < 480 ? 3 : 4;
+    final rows = (_assets.length / columns).ceil();
+    final cellWidth = size.x / columns;
+    final cellHeight = size.y / rows;
     final p = Paint()..isAntiAlias = true;
     for (var index = 0; index < _assets.length; index++) {
       final (label, _) = _assets[index];
-      final col = index % 4;
-      final row = index ~/ 4;
+      final col = index % columns;
+      final row = index ~/ columns;
       final cell = Rect.fromLTWH(
         col * cellWidth + 8,
         row * cellHeight + 8,
@@ -134,6 +146,7 @@ class KenneyAssetGallery extends FlameGame {
   void onRemove() {
     _assetImages.clearCache();
     _sprites.clear();
+    KenneySprites.clear();
     super.onRemove();
   }
 }

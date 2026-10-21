@@ -63,6 +63,12 @@ flutter:
   assets:
     - assets/audio/
     - assets/third_party/kenney/toon-characters/selected/
+    - assets/third_party/kenney/rpg-base/selected/rpgTile128.png
+    - assets/third_party/kenney/rpg-base/selected/rpgTile129.png
+    - assets/third_party/kenney/rpg-base/selected/rpgTile130.png
+    - assets/third_party/kenney/rpg-base/selected/rpgTile132.png
+    - assets/third_party/kenney/rpg-base/selected/rpgTile133.png
+    - assets/third_party/kenney/rpg-base/selected/rpgTile134.png
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

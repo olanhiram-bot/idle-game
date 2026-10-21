@@ -1,13 +1,16 @@
+import 'dart:async';
 import 'dart:math' as math;
 import 'dart:ui';
 
 import 'package:flame/game.dart';
+import 'package:flame/cache.dart';
 
 import '../domain/lantern_run.dart';
 import 'enemy_art.dart';
 import 'arena_layout.dart';
 import 'world_art.dart';
 import 'hero_art.dart';
+import 'kenney_sprites.dart';
 
 /// Arte geométrico propio. La escena observa el dominio, nunca entrega oro.
 class LanternScene extends FlameGame {
@@ -23,6 +26,35 @@ class LanternScene extends FlameGame {
   int _seenStrikes = 0;
   double _enemyPulse = 1;
   double get attackProgress => _pulse;
+  final Map<int, Image> _floorTiles = {};
+  final Completer<void> _assetsLoaded = Completer<void>();
+  Future<void> get assetsLoaded => _assetsLoaded.future;
+  final Images _floorAssets = Images(
+    prefix: 'assets/third_party/kenney/rpg-base/selected/',
+  );
+  final Images _characterAssets = Images(prefix: 'assets/third_party/kenney/');
+
+  @override
+  Future<void> onLoad() async {
+    await super.onLoad();
+    for (final id in const [128, 132, 134]) {
+      final filename = 'rpgTile${id.toString().padLeft(3, '0')}.png';
+      _floorTiles[id] = await _floorAssets.load(filename);
+    }
+    const poses = ['idle', 'attack0', 'hurt', 'down'];
+    for (final character in const ['Female adventurer', 'Male adventurer']) {
+      final filenamePrefix = character == 'Female adventurer'
+          ? 'character_femaleAdventurer'
+          : 'character_maleAdventurer';
+      for (final pose in poses) {
+        final filename = '${filenamePrefix}_$pose.png';
+        final path =
+            'toon-characters/selected/$character/PNG/Poses HD/$filename';
+        KenneySprites.install(filename, await _characterAssets.load(path));
+      }
+    }
+    _assetsLoaded.complete();
+  }
 
   @override
   Color backgroundColor() => const Color(0xFF151F2B);
@@ -60,6 +92,7 @@ class LanternScene extends FlameGame {
       sector: run.campaign ? run.encounter : 0,
       litLanterns: run.litLanterns,
     );
+    _paintImportedFloor(canvas);
     final layout = ArenaLayout(
       width: size.x,
       top: arenaTop,
@@ -201,5 +234,47 @@ class LanternScene extends FlameGame {
       );
     }
     canvas.restore();
+  }
+
+  void _paintImportedFloor(Canvas canvas) {
+    if (_floorTiles.isEmpty) return;
+    final tileSize = (size.x * .13).clamp(38.0, 82.0);
+    final horizon = size.y * .655;
+    final paint = Paint()..filterQuality = FilterQuality.medium;
+    for (var row = 0; row < 3; row++) {
+      final depth = (row + 1) / 3;
+      final y = horizon + size.y * .22 * depth * depth;
+      final tile = tileSize * (.4 + depth * .6);
+      final columns = (size.x / tile).ceil() + 2;
+      for (var column = -1; column < columns; column++) {
+        final id = [128, 129, 130, 132, 133, 134][(column.abs() + row * 2) % 6];
+        final image = _floorTiles[id];
+        if (image == null) continue;
+        final x = column * tile + (row.isOdd ? tile / 2 : 0);
+        canvas.drawImageRect(
+          image,
+          Rect.fromLTWH(0, 0, image.width.toDouble(), image.height.toDouble()),
+          Rect.fromLTWH(x, y, tile + 1, tile * .72 + 1),
+          paint,
+        );
+      }
+    }
+    // Keep the imported stones in the original world's dark night palette.
+    canvas.drawRect(
+      Rect.fromLTWH(0, horizon, size.x, size.y - horizon),
+      Paint()
+        ..shader = Gradient.linear(
+          Offset(0, horizon),
+          Offset(0, size.y),
+          const [Color(0x44223143), Color(0xC9061320)],
+        ),
+    );
+  }
+
+  @override
+  void onRemove() {
+    _floorAssets.clearCache();
+    _characterAssets.clearCache();
+    super.onRemove();
   }
 }

@@ -1,8 +1,10 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:idle_game/domain/lantern_run.dart';
 import 'package:idle_game/presentation/lantern_scene.dart';
+import 'package:idle_game/presentation/kenney_sprites.dart';
 
 void main() {
+  tearDown(KenneySprites.clear);
   test(
     'El golpe final conserva animación y daño real aunque termine pelea',
     () {
