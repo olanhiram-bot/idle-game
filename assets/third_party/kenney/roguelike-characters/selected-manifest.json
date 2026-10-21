@@ -1,0 +1,26 @@
+[
+  {
+    "source": "Preview.png",
+    "path": "assets/third_party/kenney/roguelike-characters/selected/Preview.png",
+    "bytes": 16723,
+    "sha256": "61c8d1c7dc0f265049600789f6f24bac45aab4c19a6154bc274cda86c0df9ca6"
+  },
+  {
+    "source": "Sample.png",
+    "path": "assets/third_party/kenney/roguelike-characters/selected/Sample.png",
+    "bytes": 23732,
+    "sha256": "451f0b67e1b4e7c92e1fb503f1e989af149ad99fa699bc5dbf137804e27e4cf9"
+  },
+  {
+    "source": "Spritesheet/roguelikeChar_magenta.png",
+    "path": "assets/third_party/kenney/roguelike-characters/selected/Spritesheet/roguelikeChar_magenta.png",
+    "bytes": 11240,
+    "sha256": "afa364ff719d8daadf0c4368295aa44907869caecbd6d1b7bef58ff6c91e2381"
+  },
+  {
+    "source": "Spritesheet/roguelikeChar_transparent.png",
+    "path": "assets/third_party/kenney/roguelike-characters/selected/Spritesheet/roguelikeChar_transparent.png",
+    "bytes": 11137,
+    "sha256": "771d51ca84b2c5b412027ba80c6a6b8a98bb5a983b2c58ac4f0ccf08ae4d10f2"
+  }
+]

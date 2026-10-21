@@ -1,0 +1,146 @@
+[
+  {
+    "path": "assets/third_party/kenney/rpg-audio/selected/Audio/chop.ogg",
+    "source": "Audio/chop.ogg",
+    "bytes": 9370,
+    "sha256": "d00c2b3c9fff07e376145c8c8c45c90e5084ec192f6ce0387db233f7b86f1486"
+  },
+  {
+    "path": "assets/third_party/kenney/rpg-audio/selected/Audio/cloth1.ogg",
+    "source": "Audio/cloth1.ogg",
+    "bytes": 16508,
+    "sha256": "ddb93a3671233f95da0e0b10367f082f7eb42fa6caaddcf776410aa8833c747d"
+  },
+  {
+    "path": "assets/third_party/kenney/rpg-audio/selected/Audio/cloth2.ogg",
+    "source": "Audio/cloth2.ogg",
+    "bytes": 11787,
+    "sha256": "8a7451193c38bc05483aec25dd193e163a15d44cf7fff04ac7912573231b0201"
+  },
+  {
+    "path": "assets/third_party/kenney/rpg-audio/selected/Audio/cloth3.ogg",
+    "source": "Audio/cloth3.ogg",
+    "bytes": 12432,
+    "sha256": "a48632d17a4f1416541d261a32a31612e01267144c407fa3ecab3ff410f0085b"
+  },
+  {
+    "path": "assets/third_party/kenney/rpg-audio/selected/Audio/cloth4.ogg",
+    "source": "Audio/cloth4.ogg",
+    "bytes": 11043,
+    "sha256": "e7ab9a6c4466dea874196c61f59bf1da05cfe58748f42fadd695d441a154a99b"
+  },
+  {
+    "path": "assets/third_party/kenney/rpg-audio/selected/Audio/clothBelt.ogg",
+    "source": "Audio/clothBelt.ogg",
+    "bytes": 21491,
+    "sha256": "f29560a2aea95bbfeb643e1e8f56ec2b6f7e32f32ce4e140645a36db81de3253"
+  },
+  {
+    "path": "assets/third_party/kenney/rpg-audio/selected/Audio/clothBelt2.ogg",
+    "source": "Audio/clothBelt2.ogg",
+    "bytes": 20013,
+    "sha256": "d545b1d9f20e6188140aaf551a96f1e82fe0d15f7ca066fac8b065e1231e0038"
+  },
+  {
+    "path": "assets/third_party/kenney/rpg-audio/selected/Audio/drawKnife1.ogg",
+    "source": "Audio/drawKnife1.ogg",
+    "bytes": 11134,
+    "sha256": "276403e72c3b71c47bc24db3083970c23f8e5551ffa78f436f83483c56f3f0bb"
+  },
+  {
+    "path": "assets/third_party/kenney/rpg-audio/selected/Audio/drawKnife2.ogg",
+    "source": "Audio/drawKnife2.ogg",
+    "bytes": 12395,
+    "sha256": "d5df6a4130cbb016f97b4883769a418917b9629cb4c21717030b186e0c73281a"
+  },
+  {
+    "path": "assets/third_party/kenney/rpg-audio/selected/Audio/drawKnife3.ogg",
+    "source": "Audio/drawKnife3.ogg",
+    "bytes": 12726,
+    "sha256": "a11ae62fb1a628425769d11a9de394980ad8909c31f4c9a4316f226963e21caf"
+  },
+  {
+    "path": "assets/third_party/kenney/rpg-audio/selected/Audio/footstep00.ogg",
+    "source": "Audio/footstep00.ogg",
+    "bytes": 9475,
+    "sha256": "6fe61ef1fc3bcf0e253bf2eb64759db6cb69e2fe452f4d88cc597ecf78a3d601"
+  },
+  {
+    "path": "assets/third_party/kenney/rpg-audio/selected/Audio/footstep01.ogg",
+    "source": "Audio/footstep01.ogg",
+    "bytes": 9900,
+    "sha256": "313472dba31fd0c855376069fa368bb5a198c27251cc8398ef464578b7047a4c"
+  },
+  {
+    "path": "assets/third_party/kenney/rpg-audio/selected/Audio/footstep02.ogg",
+    "source": "Audio/footstep02.ogg",
+    "bytes": 9528,
+    "sha256": "2d9575b7dead6e1217ca113991fc5229e9b6d998ea0726ebbb277e7398ab888f"
+  },
+  {
+    "path": "assets/third_party/kenney/rpg-audio/selected/Audio/footstep03.ogg",
+    "source": "Audio/footstep03.ogg",
+    "bytes": 10559,
+    "sha256": "a86756b9af9f370455ab47844239bb07fd1bee7a113068c91f0fcd9b72703fae"
+  },
+  {
+    "path": "assets/third_party/kenney/rpg-audio/selected/Audio/footstep04.ogg",
+    "source": "Audio/footstep04.ogg",
+    "bytes": 11303,
+    "sha256": "fd264d72a7cd622b82abde202f4ed09fa7de95d34c36473ee938ce66cdf39830"
+  },
+  {
+    "path": "assets/third_party/kenney/rpg-audio/selected/Audio/footstep05.ogg",
+    "source": "Audio/footstep05.ogg",
+    "bytes": 10288,
+    "sha256": "817957e1f95d97fd36870064c41673895575cde17bccb245f50364c86ed10198"
+  },
+  {
+    "path": "assets/third_party/kenney/rpg-audio/selected/Audio/footstep06.ogg",
+    "source": "Audio/footstep06.ogg",
+    "bytes": 9885,
+    "sha256": "6cabfe7ae95d227a84066c6e17014ac31cc7c89b14ef51d7877e98352d4a64fb"
+  },
+  {
+    "path": "assets/third_party/kenney/rpg-audio/selected/Audio/footstep07.ogg",
+    "source": "Audio/footstep07.ogg",
+    "bytes": 10264,
+    "sha256": "42924cdbf998d5b3db180a339fd74afc94c570d594a536687e337ef1bdfdb346"
+  },
+  {
+    "path": "assets/third_party/kenney/rpg-audio/selected/Audio/footstep08.ogg",
+    "source": "Audio/footstep08.ogg",
+    "bytes": 9242,
+    "sha256": "668f14dc1254d0d0f33025e9c7dbcdf2c2f00462ed0e07fb8f099c1d711c1337"
+  },
+  {
+    "path": "assets/third_party/kenney/rpg-audio/selected/Audio/footstep09.ogg",
+    "source": "Audio/footstep09.ogg",
+    "bytes": 9356,
+    "sha256": "9324ebb9b2c5bcd078dcb523c6518d38a9f34081069d511602c2efb14ce06ce2"
+  },
+  {
+    "path": "assets/third_party/kenney/rpg-audio/selected/Audio/knifeSlice.ogg",
+    "source": "Audio/knifeSlice.ogg",
+    "bytes": 15532,
+    "sha256": "4cd96dc630bed9840c15f1dd2306da2cc56a4da26a5d3f1a03c5a7265ac5e54f"
+  },
+  {
+    "path": "assets/third_party/kenney/rpg-audio/selected/Audio/knifeSlice2.ogg",
+    "source": "Audio/knifeSlice2.ogg",
+    "bytes": 15099,
+    "sha256": "6c2064d0ef988d1ec3d56868e823ea8823a5cac00f2742560052633529407def"
+  },
+  {
+    "path": "assets/third_party/kenney/rpg-audio/selected/Audio/metalClick.ogg",
+    "source": "Audio/metalClick.ogg",
+    "bytes": 13615,
+    "sha256": "9851a69d0c613e13bceef08060ecc4148f098ef487927cbebe270d642398a3b3"
+  },
+  {
+    "path": "assets/third_party/kenney/rpg-audio/selected/Audio/metalLatch.ogg",
+    "source": "Audio/metalLatch.ogg",
+    "bytes": 10208,
+    "sha256": "ba9ba60b172b3ebc131a940f25793cd2e207aca7af73dc80d637277f060f1708"
+  }
+]

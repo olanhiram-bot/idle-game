@@ -1,0 +1,32 @@
+[
+  {
+    "path": "assets/third_party/kenney/fantasy-ui-borders/selected/PNG/Double/Panel/panel-000.png",
+    "source": "PNG/Double/Panel/panel-000.png",
+    "bytes": 184,
+    "sha256": "d84e0a1f1ef9e0d7531d19baf83aef33734819aa9b44a649922240561ac8affc"
+  },
+  {
+    "path": "assets/third_party/kenney/fantasy-ui-borders/selected/PNG/Double/Panel/panel-004.png",
+    "source": "PNG/Double/Panel/panel-004.png",
+    "bytes": 153,
+    "sha256": "742b908615f8b80e3cc93e34b5bcb4ad422ea35d2a64418faf2ea343d7618efc"
+  },
+  {
+    "path": "assets/third_party/kenney/fantasy-ui-borders/selected/PNG/Double/Border/panel-border-000.png",
+    "source": "PNG/Double/Border/panel-border-000.png",
+    "bytes": 174,
+    "sha256": "8d8ef5833a1489e1229cfd21412eb790e64327e9b26eec7cc7fd0cea2cab340b"
+  },
+  {
+    "path": "assets/third_party/kenney/fantasy-ui-borders/selected/PNG/Double/Border/panel-border-004.png",
+    "source": "PNG/Double/Border/panel-border-004.png",
+    "bytes": 151,
+    "sha256": "e4ce6e37b00be6beacb79de2507d374ed573d33bf535edaee4735596e54abe77"
+  },
+  {
+    "path": "assets/third_party/kenney/fantasy-ui-borders/selected/PNG/Default/Divider/divider-000.png",
+    "source": "PNG/Default/Divider/divider-000.png",
+    "bytes": 153,
+    "sha256": "63af6cb7ad5d0d786eb607450b8b5e32a4fe0e5f3bcf5ddf2619dee2b1c9b0e6"
+  }
+]

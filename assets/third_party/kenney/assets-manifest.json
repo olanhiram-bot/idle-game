@@ -1,0 +1,240 @@
+[
+  {
+    "path": "assets/third_party/kenney/toon-characters/selected/Female adventurer/PNG/Poses HD/character_femaleAdventurer_idle.png",
+    "source_archive": "toon-characters.zip",
+    "source_file": "Female adventurer/PNG/Poses HD/character_femaleAdventurer_idle.png",
+    "size": 7948,
+    "sha256": "ea2d020b168a5d6d02d66cccd375956db7854b386ee6e153d034cc0b00dff635",
+    "width_height": [
+      192,
+      256
+    ]
+  },
+  {
+    "path": "assets/third_party/kenney/toon-characters/selected/Female adventurer/PNG/Poses HD/character_femaleAdventurer_attack0.png",
+    "source_archive": "toon-characters.zip",
+    "source_file": "Female adventurer/PNG/Poses HD/character_femaleAdventurer_attack0.png",
+    "size": 8169,
+    "sha256": "1cd4effae1f446d16fdde13130d0b0911cfabf1fd7aadf31567abb282791f1cf",
+    "width_height": [
+      192,
+      256
+    ]
+  },
+  {
+    "path": "assets/third_party/kenney/toon-characters/selected/Female adventurer/PNG/Poses HD/character_femaleAdventurer_attack1.png",
+    "source_archive": "toon-characters.zip",
+    "source_file": "Female adventurer/PNG/Poses HD/character_femaleAdventurer_attack1.png",
+    "size": 7767,
+    "sha256": "e5163ed426d0bd3702832d985d7a617b1cbc2e3f1fbe424fecdf15bf98795e57",
+    "width_height": [
+      192,
+      256
+    ]
+  },
+  {
+    "path": "assets/third_party/kenney/toon-characters/selected/Female adventurer/PNG/Poses HD/character_femaleAdventurer_hurt.png",
+    "source_archive": "toon-characters.zip",
+    "source_file": "Female adventurer/PNG/Poses HD/character_femaleAdventurer_hurt.png",
+    "size": 6377,
+    "sha256": "026cb8dc94b094d52607703c5114af18c2f29373dfb37c1fc346b27e1c7d62d1",
+    "width_height": [
+      192,
+      256
+    ]
+  },
+  {
+    "path": "assets/third_party/kenney/toon-characters/selected/Female adventurer/PNG/Poses HD/character_femaleAdventurer_down.png",
+    "source_archive": "toon-characters.zip",
+    "source_file": "Female adventurer/PNG/Poses HD/character_femaleAdventurer_down.png",
+    "size": 7047,
+    "sha256": "7996148ffa8aa5fdf1c1a3fbf8faf560dfb423fe90f33017b8548810c30ce89c",
+    "width_height": [
+      192,
+      256
+    ]
+  },
+  {
+    "path": "assets/third_party/kenney/toon-characters/selected/Male adventurer/PNG/Poses HD/character_maleAdventurer_idle.png",
+    "source_archive": "toon-characters.zip",
+    "source_file": "Male adventurer/PNG/Poses HD/character_maleAdventurer_idle.png",
+    "size": 8010,
+    "sha256": "b89c1b41ec1fd043d542749e1966100787d3b31f5b593c7075b9aa2922a72281",
+    "width_height": [
+      192,
+      256
+    ]
+  },
+  {
+    "path": "assets/third_party/kenney/toon-characters/selected/Male adventurer/PNG/Poses HD/character_maleAdventurer_attack0.png",
+    "source_archive": "toon-characters.zip",
+    "source_file": "Male adventurer/PNG/Poses HD/character_maleAdventurer_attack0.png",
+    "size": 8173,
+    "sha256": "17839cf5ffe9a77904f3d6d13499873377b2e376ea6f290999fb9b2dafe47e18",
+    "width_height": [
+      192,
+      256
+    ]
+  },
+  {
+    "path": "assets/third_party/kenney/toon-characters/selected/Male adventurer/PNG/Poses HD/character_maleAdventurer_attack1.png",
+    "source_archive": "toon-characters.zip",
+    "source_file": "Male adventurer/PNG/Poses HD/character_maleAdventurer_attack1.png",
+    "size": 7853,
+    "sha256": "56e87e94872d09bdf76072cc086bfd8ee3f0225c252fd6f8b1af8f8d3bf40d16",
+    "width_height": [
+      192,
+      256
+    ]
+  },
+  {
+    "path": "assets/third_party/kenney/toon-characters/selected/Male adventurer/PNG/Poses HD/character_maleAdventurer_hurt.png",
+    "source_archive": "toon-characters.zip",
+    "source_file": "Male adventurer/PNG/Poses HD/character_maleAdventurer_hurt.png",
+    "size": 6919,
+    "sha256": "e4499f42bd8c9e20a2f5015d7c3c1613387ca6e80361c02037cb4a170af1e2e3",
+    "width_height": [
+      192,
+      256
+    ]
+  },
+  {
+    "path": "assets/third_party/kenney/toon-characters/selected/Male adventurer/PNG/Poses HD/character_maleAdventurer_down.png",
+    "source_archive": "toon-characters.zip",
+    "source_file": "Male adventurer/PNG/Poses HD/character_maleAdventurer_down.png",
+    "size": 6929,
+    "sha256": "7897516d7660d2759b419c8d574fd26d8b2647c670edb483a164d7f167ef81ca",
+    "width_height": [
+      192,
+      256
+    ]
+  },
+  {
+    "path": "assets/third_party/kenney/toon-characters/selected/Zombie/PNG/Poses HD/character_zombie_idle.png",
+    "source_archive": "toon-characters.zip",
+    "source_file": "Zombie/PNG/Poses HD/character_zombie_idle.png",
+    "size": 8519,
+    "sha256": "67e6fb5780f7ec4781689f971931534a906ecd3712c2109692c3df83407b976d",
+    "width_height": [
+      192,
+      256
+    ]
+  },
+  {
+    "path": "assets/third_party/kenney/toon-characters/selected/Zombie/PNG/Poses HD/character_zombie_attack0.png",
+    "source_archive": "toon-characters.zip",
+    "source_file": "Zombie/PNG/Poses HD/character_zombie_attack0.png",
+    "size": 8310,
+    "sha256": "22493541a0069885da95eb1ab9d7d04a0f0bcce162a7d7e32e9621c4409bec9a",
+    "width_height": [
+      192,
+      256
+    ]
+  },
+  {
+    "path": "assets/third_party/kenney/toon-characters/selected/Zombie/PNG/Poses HD/character_zombie_attack1.png",
+    "source_archive": "toon-characters.zip",
+    "source_file": "Zombie/PNG/Poses HD/character_zombie_attack1.png",
+    "size": 7786,
+    "sha256": "b55abdb7e3ab7c4992f1fda65e5668b39515e2eabea8ffb6b7706e95ade43d3b",
+    "width_height": [
+      192,
+      256
+    ]
+  },
+  {
+    "path": "assets/third_party/kenney/toon-characters/selected/Zombie/PNG/Poses HD/character_zombie_hurt.png",
+    "source_archive": "toon-characters.zip",
+    "source_file": "Zombie/PNG/Poses HD/character_zombie_hurt.png",
+    "size": 7155,
+    "sha256": "df618f9110ee559637f7792cbf655b25a2728d8adba826c638b601cc9141b63f",
+    "width_height": [
+      192,
+      256
+    ]
+  },
+  {
+    "path": "assets/third_party/kenney/toon-characters/selected/Zombie/PNG/Poses HD/character_zombie_down.png",
+    "source_archive": "toon-characters.zip",
+    "source_file": "Zombie/PNG/Poses HD/character_zombie_down.png",
+    "size": 7014,
+    "sha256": "4059e0933173ccd397a2cec0818a9ace48f3a2d99dd367af3ab04de0bad0713a",
+    "width_height": [
+      192,
+      256
+    ]
+  },
+  {
+    "path": "assets/third_party/kenney/fantasy-ui-borders/selected/PNG/Double/Panel/panel-015.png",
+    "source_archive": "fantasy-ui-borders.zip",
+    "source_file": "PNG/Double/Panel/panel-015.png",
+    "size": 141,
+    "sha256": "834293b92268451465293de077844d30e1d944ed79b05aee2968445bf4e9fe2a",
+    "width_height": [
+      96,
+      96
+    ]
+  },
+  {
+    "path": "assets/third_party/kenney/fantasy-ui-borders/selected/PNG/Double/Border/panel-border-015.png",
+    "source_archive": "fantasy-ui-borders.zip",
+    "source_file": "PNG/Double/Border/panel-border-015.png",
+    "size": 136,
+    "sha256": "ec6b95abaafd791f47f8dccf64132773044d43a194fea3de809a62011e593074",
+    "width_height": [
+      96,
+      96
+    ]
+  },
+  {
+    "path": "assets/third_party/kenney/fantasy-ui-borders/selected/PNG/Default/Divider/divider-000.png",
+    "source_archive": "fantasy-ui-borders.zip",
+    "source_file": "PNG/Default/Divider/divider-000.png",
+    "size": 153,
+    "sha256": "63af6cb7ad5d0d786eb607450b8b5e32a4fe0e5f3bcf5ddf2619dee2b1c9b0e6",
+    "width_height": [
+      96,
+      22
+    ]
+  },
+  {
+    "path": "assets/third_party/kenney/rpg-audio/selected/Audio/knifeSlice.ogg",
+    "source_archive": "rpg-audio.zip",
+    "source_file": "Audio/knifeSlice.ogg",
+    "size": 15532,
+    "sha256": "4cd96dc630bed9840c15f1dd2306da2cc56a4da26a5d3f1a03c5a7265ac5e54f",
+    "width_height": null
+  },
+  {
+    "path": "assets/third_party/kenney/rpg-audio/selected/Audio/knifeSlice2.ogg",
+    "source_archive": "rpg-audio.zip",
+    "source_file": "Audio/knifeSlice2.ogg",
+    "size": 15099,
+    "sha256": "6c2064d0ef988d1ec3d56868e823ea8823a5cac00f2742560052633529407def",
+    "width_height": null
+  },
+  {
+    "path": "assets/third_party/kenney/rpg-audio/selected/Audio/chop.ogg",
+    "source_archive": "rpg-audio.zip",
+    "source_file": "Audio/chop.ogg",
+    "size": 9370,
+    "sha256": "d00c2b3c9fff07e376145c8c8c45c90e5084ec192f6ce0387db233f7b86f1486",
+    "width_height": null
+  },
+  {
+    "path": "assets/third_party/kenney/rpg-audio/selected/Audio/handleCoins.ogg",
+    "source_archive": "rpg-audio.zip",
+    "source_file": "Audio/handleCoins.ogg",
+    "size": 25394,
+    "sha256": "8a91f969e932df709df80ee124d86a51389eed9b67f22e5e716bc2bbf60d8dab",
+    "width_height": null
+  },
+  {
+    "path": "assets/third_party/kenney/rpg-audio/selected/Audio/metalClick.ogg",
+    "source_archive": "rpg-audio.zip",
+    "source_file": "Audio/metalClick.ogg",
+    "size": 13615,
+    "sha256": "9851a69d0c613e13bceef08060ecc4148f098ef487927cbebe270d642398a3b3",
+    "width_height": null
+  }
+]
