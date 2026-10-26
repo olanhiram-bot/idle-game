@@ -13,6 +13,7 @@ import '../domain/lantern_run.dart';
 import '../presentation/title_screen.dart';
 import '../presentation/game_badge.dart';
 import '../presentation/game_theme.dart';
+import '../presentation/kenney_sprites.dart';
 
 class SaveGate extends StatefulWidget {
   const SaveGate({super.key, required this.builder});
@@ -40,6 +41,7 @@ class _SaveGateState extends State<SaveGate> {
 
   Future<void> _open() async {
     try {
+      await KenneySprites.load();
       final db = await openSaveDatabase();
       repo = SaveRepository(db, owner: sessionOwner());
       if (!await repo!.acquire()) {

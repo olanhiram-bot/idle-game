@@ -3,8 +3,6 @@ import 'dart:ui';
 import 'package:flame/cache.dart';
 import 'package:flame/game.dart';
 
-import 'kenney_sprites.dart';
-
 /// Artist-facing preview of selected CC0 sprites, also opened from combat HUD.
 class KenneyAssetGallery extends FlameGame {
   KenneyAssetGallery();
@@ -146,7 +144,7 @@ class KenneyAssetGallery extends FlameGame {
   void onRemove() {
     _assetImages.clearCache();
     _sprites.clear();
-    KenneySprites.clear();
+
     super.onRemove();
   }
 }

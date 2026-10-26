@@ -1,6 +1,4 @@
-import 'dart:async';
 import 'dart:ui';
-import 'dart:typed_data';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:idle_game/presentation/hero_art.dart';
@@ -12,7 +10,8 @@ void main() {
   test('Kenney pose associations match only compatible hero roles', () {
     expect(KenneySprites.hero('farol', 0), isNotNull);
     expect(KenneySprites.hero('bastion', 0), isNotNull);
-    expect(KenneySprites.hero('ascua', 0), isNull);
+    expect(KenneySprites.hero('ascua', 0), isNotNull);
+    expect(KenneySprites.hero('vigia', 0), isNotNull);
     expect(KenneySprites.hero('unknown', 0), isNull);
   });
   test(

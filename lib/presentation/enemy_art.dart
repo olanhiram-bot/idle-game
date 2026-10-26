@@ -1,9 +1,49 @@
 import 'dart:ui';
 
 import 'characters.dart';
+import 'kenney_sprites.dart';
 
 abstract final class EnemyArt {
-  static void paint(Canvas c, int kind, {double attack = 0, double hit = 0}) {
+  static void paint(
+    Canvas c,
+    int kind, {
+    double attack = 0,
+    double hit = 0,
+    bool defeated = false,
+  }) {
+    final pose = defeated
+        ? 3
+        : hit > .000001
+        ? 2
+        : attack > .000001
+        ? (attack > .65 ? 5 : 1)
+        : 0;
+    final sprite = KenneySprites.enemy(kind, pose);
+    if (KenneySprites.image(sprite) != null) {
+      c.save();
+      c.translate(-attack * 20 + hit * 6, 0);
+      c.drawOval(
+        const Rect.fromLTWH(380, 276, 100, 12),
+        Paint()..color = const Color(0x66040F23),
+      );
+      final size = kind == 3 ? 218.0 : 190.0;
+      KenneySprites.paint(
+        c,
+        sprite,
+        Rect.fromLTWH(430 - size / 2, 284 - size, size, size),
+      );
+      if (kind == 1 && !defeated) {
+        c.drawOval(
+          const Rect.fromLTWH(369, 142, 122, 142),
+          Paint()
+            ..color = const Color(0x887BD8D2)
+            ..style = PaintingStyle.stroke
+            ..strokeWidth = 3,
+        );
+      }
+      c.restore();
+      return;
+    }
     if (kind == 0) {
       Characters.sootling(c, bob: -attack * 8, hit: hit);
       return;

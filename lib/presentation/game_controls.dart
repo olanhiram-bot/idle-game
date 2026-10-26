@@ -13,6 +13,7 @@ class FilledButton extends StatefulWidget {
     required this.child,
     this.style,
     this.secondary = false,
+    this.tertiary = false,
   });
   FilledButton.icon({
     super.key,
@@ -21,6 +22,7 @@ class FilledButton extends StatefulWidget {
     required Widget label,
     this.style,
     this.secondary = false,
+    this.tertiary = false,
   }) : child = Wrap(
          alignment: WrapAlignment.center,
          crossAxisAlignment: WrapCrossAlignment.center,
@@ -31,6 +33,7 @@ class FilledButton extends StatefulWidget {
   final Widget child;
   final ButtonStyle? style;
   final bool secondary;
+  final bool tertiary;
   @override
   State<FilledButton> createState() => _GameButtonState();
 }
@@ -75,9 +78,11 @@ class _GameButtonState extends State<FilledButton> {
           onTapUp: (_) => setState(() => pressed = false),
           child: Container(
             margin: const EdgeInsets.symmetric(vertical: 4),
-            padding: const EdgeInsets.only(bottom: 4),
+            padding: EdgeInsets.only(bottom: widget.tertiary ? 0 : 3),
             decoration: BoxDecoration(
-              color: enabled
+              color: widget.tertiary
+                  ? Colors.transparent
+                  : enabled
                   ? const Color(0xFF07111F)
                   : const Color(0xFF1C2939),
               borderRadius: BorderRadius.circular(8),
@@ -95,6 +100,8 @@ class _GameButtonState extends State<FilledButton> {
                   border: Border.all(
                     color: focused
                         ? Colors.white
+                        : widget.tertiary
+                        ? Colors.transparent
                         : enabled
                         ? border
                         : GameStyle.edge,
@@ -103,7 +110,9 @@ class _GameButtonState extends State<FilledButton> {
                   gradient: LinearGradient(
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
-                    colors: !enabled
+                    colors: widget.tertiary
+                        ? [Colors.transparent, Colors.transparent]
+                        : !enabled
                         ? [const Color(0xFF334158), const Color(0xFF283347)]
                         : widget.secondary
                         ? [
@@ -121,7 +130,9 @@ class _GameButtonState extends State<FilledButton> {
                               : const Color(0xFF302316)
                         : GameStyle.muted,
                     fontSize: 14,
-                    fontWeight: FontWeight.w900,
+                    fontWeight: widget.tertiary
+                        ? FontWeight.w600
+                        : FontWeight.w800,
                     letterSpacing: .2,
                   ),
                   textAlign: TextAlign.center,
@@ -169,14 +180,15 @@ class OutlinedButton extends FilledButton {
       );
 }
 
-class TextButton extends OutlinedButton {
-  const TextButton({super.key, required super.onPressed, required super.child});
+class TextButton extends FilledButton {
+  const TextButton({super.key, required super.onPressed, required super.child})
+    : super(secondary: true, tertiary: true);
   TextButton.icon({
     super.key,
     required super.onPressed,
     required super.icon,
     required super.label,
-  }) : super.icon();
+  }) : super.icon(secondary: true, tertiary: true);
 }
 
 class SwitchListTile extends StatelessWidget {

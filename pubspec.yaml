@@ -61,8 +61,11 @@ dev_dependencies:
 # The following section is specific to Flutter packages.
 flutter:
   assets:
+    - assets/toon/
     - assets/audio/
-    - assets/third_party/kenney/toon-characters/selected/
+    - assets/third_party/kenney/toon-characters/selected/Female adventurer/PNG/Poses HD/
+    - assets/third_party/kenney/toon-characters/selected/Male adventurer/PNG/Poses HD/
+    - assets/third_party/kenney/toon-characters/selected/Zombie/PNG/Poses HD/
     - assets/third_party/kenney/rpg-base/selected/rpgTile128.png
     - assets/third_party/kenney/rpg-base/selected/rpgTile129.png
     - assets/third_party/kenney/rpg-base/selected/rpgTile130.png

@@ -42,7 +42,7 @@ const heroes = [
     'Guardafaroles',
     20,
     1,
-    'Equilibrio · bastón y pulsos de luz',
+    'Exploradora · pulsos de luz y resistencia equilibrada',
   ),
   HeroSpec(
     'bastion',
@@ -50,7 +50,7 @@ const heroes = [
     'Centinela',
     28,
     1,
-    'Resistencia · espada y escudo',
+    'Resistencia · aventurero de primera línea',
   ),
   HeroSpec(
     'ascua',
@@ -58,7 +58,15 @@ const heroes = [
     'Invocadora',
     16,
     2,
-    'Ofensiva · magia de fuego, menos vida',
+    'Ofensiva · canaliza fuego, menos vida',
+  ),
+  HeroSpec(
+    'vigia',
+    'Vigía',
+    'Vigilante',
+    24,
+    1,
+    'Supervivencia · vigila la ruta y resiste más que Luz',
   ),
 ];
 
@@ -78,7 +86,7 @@ class EnemySpec {
 const enemies = [
   EnemySpec(
     'mota',
-    'Mota de hollín',
+    'Zombi errante',
     8,
     4,
     3500,
@@ -86,7 +94,7 @@ const enemies = [
   ),
   EnemySpec(
     'acorazado',
-    'Hollín acorazado',
+    'Robot acorazado',
     16,
     5,
     4500,
@@ -94,7 +102,7 @@ const enemies = [
   ),
   EnemySpec(
     'acechador',
-    'Acechador de ceniza',
+    'Zombi acechador',
     20,
     8,
     3000,
@@ -102,7 +110,7 @@ const enemies = [
   ),
   EnemySpec(
     'umbral',
-    'Guardián del Umbral',
+    'Robot del Umbral',
     48,
     8,
     4000,

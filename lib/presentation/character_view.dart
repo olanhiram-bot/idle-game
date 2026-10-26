@@ -207,10 +207,15 @@ class _CharacterViewState extends State<CharacterView> {
 }
 
 class HeroPortrait extends CustomPainter {
-  const HeroPortrait(this.id);
+  HeroPortrait(this.id) : super(repaint: KenneySprites.revision);
   final String id;
   @override
   void paint(Canvas canvas, Size size) {
+    final sprite = KenneySprites.hero(id, 0);
+    if (sprite != null && KenneySprites.image(sprite) != null) {
+      KenneySprites.paint(canvas, sprite, Offset.zero & size);
+      return;
+    }
     final scale = (size.height / 185).clamp(.1, 2.0);
     canvas.save();
     canvas.translate(
@@ -218,12 +223,7 @@ class HeroPortrait extends CustomPainter {
       size.height / 2 - 216 * scale,
     );
     canvas.scale(scale);
-    final sprite = KenneySprites.hero(id, 0);
-    if (sprite != null && KenneySprites.image(sprite) != null) {
-      KenneySprites.paint(canvas, sprite, Rect.fromLTWH(111, 80, 98, 204));
-    } else {
-      HeroArt.paint(canvas, id, 0);
-    }
+    HeroArt.paint(canvas, id, 0);
     canvas.restore();
   }
 

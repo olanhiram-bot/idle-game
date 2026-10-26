@@ -1,0 +1,182 @@
+[
+  {
+    "file": "character_femaleAdventurer_idle.png",
+    "source": "Female adventurer/PNG/Poses HD/character_femaleAdventurer_idle.png",
+    "sha256": "ea2d020b168a5d6d02d66cccd375956db7854b386ee6e153d034cc0b00dff635"
+  },
+  {
+    "file": "character_femaleAdventurer_attack0.png",
+    "source": "Female adventurer/PNG/Poses HD/character_femaleAdventurer_attack0.png",
+    "sha256": "1cd4effae1f446d16fdde13130d0b0911cfabf1fd7aadf31567abb282791f1cf"
+  },
+  {
+    "file": "character_femaleAdventurer_attack1.png",
+    "source": "Female adventurer/PNG/Poses HD/character_femaleAdventurer_attack1.png",
+    "sha256": "e5163ed426d0bd3702832d985d7a617b1cbc2e3f1fbe424fecdf15bf98795e57"
+  },
+  {
+    "file": "character_femaleAdventurer_hurt.png",
+    "source": "Female adventurer/PNG/Poses HD/character_femaleAdventurer_hurt.png",
+    "sha256": "026cb8dc94b094d52607703c5114af18c2f29373dfb37c1fc346b27e1c7d62d1"
+  },
+  {
+    "file": "character_femaleAdventurer_down.png",
+    "source": "Female adventurer/PNG/Poses HD/character_femaleAdventurer_down.png",
+    "sha256": "7996148ffa8aa5fdf1c1a3fbf8faf560dfb423fe90f33017b8548810c30ce89c"
+  },
+  {
+    "file": "character_femaleAdventurer_duck.png",
+    "source": "Female adventurer/PNG/Poses HD/character_femaleAdventurer_duck.png",
+    "sha256": "b273f3ab5ade789d3c116d8fca61d05c4553942682840dd15930bf698b6e6b24"
+  },
+  {
+    "file": "character_maleAdventurer_idle.png",
+    "source": "Male adventurer/PNG/Poses HD/character_maleAdventurer_idle.png",
+    "sha256": "b89c1b41ec1fd043d542749e1966100787d3b31f5b593c7075b9aa2922a72281"
+  },
+  {
+    "file": "character_maleAdventurer_attack0.png",
+    "source": "Male adventurer/PNG/Poses HD/character_maleAdventurer_attack0.png",
+    "sha256": "17839cf5ffe9a77904f3d6d13499873377b2e376ea6f290999fb9b2dafe47e18"
+  },
+  {
+    "file": "character_maleAdventurer_attack1.png",
+    "source": "Male adventurer/PNG/Poses HD/character_maleAdventurer_attack1.png",
+    "sha256": "56e87e94872d09bdf76072cc086bfd8ee3f0225c252fd6f8b1af8f8d3bf40d16"
+  },
+  {
+    "file": "character_maleAdventurer_hurt.png",
+    "source": "Male adventurer/PNG/Poses HD/character_maleAdventurer_hurt.png",
+    "sha256": "e4499f42bd8c9e20a2f5015d7c3c1613387ca6e80361c02037cb4a170af1e2e3"
+  },
+  {
+    "file": "character_maleAdventurer_down.png",
+    "source": "Male adventurer/PNG/Poses HD/character_maleAdventurer_down.png",
+    "sha256": "7897516d7660d2759b419c8d574fd26d8b2647c670edb483a164d7f167ef81ca"
+  },
+  {
+    "file": "character_maleAdventurer_duck.png",
+    "source": "Male adventurer/PNG/Poses HD/character_maleAdventurer_duck.png",
+    "sha256": "7772262afc12415b0f90820ffdf59aa8de2b1ebef9661fb2ae8b0c951e28cd21"
+  },
+  {
+    "file": "character_femalePerson_idle.png",
+    "source": "Female person/PNG/Poses HD/character_femalePerson_idle.png",
+    "sha256": "9d730e78cfd4a065e613115b55d3c0135e4de3c8993e261230fef18bbbdbc480"
+  },
+  {
+    "file": "character_femalePerson_attack0.png",
+    "source": "Female person/PNG/Poses HD/character_femalePerson_attack0.png",
+    "sha256": "79625ff29b3e78246a9d15d9312b869ccf5ad93e3d859a3e3e041b9636e72860"
+  },
+  {
+    "file": "character_femalePerson_attack1.png",
+    "source": "Female person/PNG/Poses HD/character_femalePerson_attack1.png",
+    "sha256": "0bf8f24ef2aa6caaaeba18eb70831e12c04c228566b0f81d8d6794ca00401d79"
+  },
+  {
+    "file": "character_femalePerson_hurt.png",
+    "source": "Female person/PNG/Poses HD/character_femalePerson_hurt.png",
+    "sha256": "1c0f3d378d6c6b1e90f6e2260ecc3cc5b784b5bcc4f38fd78f855cb6b110dd0e"
+  },
+  {
+    "file": "character_femalePerson_down.png",
+    "source": "Female person/PNG/Poses HD/character_femalePerson_down.png",
+    "sha256": "4566c1eea8455c9bbe193484d7de3acdb0636860f68d139ca64659e2a6e898b6"
+  },
+  {
+    "file": "character_femalePerson_duck.png",
+    "source": "Female person/PNG/Poses HD/character_femalePerson_duck.png",
+    "sha256": "d617524041981d16be2d66a675a9336b447f76c89a9bc43bdab6f5885eb85322"
+  },
+  {
+    "file": "character_malePerson_idle.png",
+    "source": "Male person/PNG/Poses HD/character_malePerson_idle.png",
+    "sha256": "291c5c37e85491e50efa58ec5f11ca93f9e36c48a54e7d32b202d69954a3b67a"
+  },
+  {
+    "file": "character_malePerson_attack0.png",
+    "source": "Male person/PNG/Poses HD/character_malePerson_attack0.png",
+    "sha256": "80e09f1c849253f3044912ed4b796bf87d48a7c43a47cf5251491106c9d5e38e"
+  },
+  {
+    "file": "character_malePerson_attack1.png",
+    "source": "Male person/PNG/Poses HD/character_malePerson_attack1.png",
+    "sha256": "799dc5e9acba79cacef4225108b26af590f5463add49620cd6f222647f45adce"
+  },
+  {
+    "file": "character_malePerson_hurt.png",
+    "source": "Male person/PNG/Poses HD/character_malePerson_hurt.png",
+    "sha256": "6cf0ad1f6d6c9dace9ee74f3d78bce368bd196f40b671c00b8126b77f32da647"
+  },
+  {
+    "file": "character_malePerson_down.png",
+    "source": "Male person/PNG/Poses HD/character_malePerson_down.png",
+    "sha256": "339e91fc7943e52fe0c9c5fe2c7d517b45f4290f15afca3884915fac65948627"
+  },
+  {
+    "file": "character_malePerson_duck.png",
+    "source": "Male person/PNG/Poses HD/character_malePerson_duck.png",
+    "sha256": "c79e7d76fbdeeed476d4190d22d6db215d7d813166ee6ced00c7a6ee6e670f85"
+  },
+  {
+    "file": "character_zombie_idle.png",
+    "source": "Zombie/PNG/Poses HD/character_zombie_idle.png",
+    "sha256": "67e6fb5780f7ec4781689f971931534a906ecd3712c2109692c3df83407b976d"
+  },
+  {
+    "file": "character_zombie_attack0.png",
+    "source": "Zombie/PNG/Poses HD/character_zombie_attack0.png",
+    "sha256": "22493541a0069885da95eb1ab9d7d04a0f0bcce162a7d7e32e9621c4409bec9a"
+  },
+  {
+    "file": "character_zombie_attack1.png",
+    "source": "Zombie/PNG/Poses HD/character_zombie_attack1.png",
+    "sha256": "b55abdb7e3ab7c4992f1fda65e5668b39515e2eabea8ffb6b7706e95ade43d3b"
+  },
+  {
+    "file": "character_zombie_hurt.png",
+    "source": "Zombie/PNG/Poses HD/character_zombie_hurt.png",
+    "sha256": "df618f9110ee559637f7792cbf655b25a2728d8adba826c638b601cc9141b63f"
+  },
+  {
+    "file": "character_zombie_down.png",
+    "source": "Zombie/PNG/Poses HD/character_zombie_down.png",
+    "sha256": "4059e0933173ccd397a2cec0818a9ace48f3a2d99dd367af3ab04de0bad0713a"
+  },
+  {
+    "file": "character_zombie_duck.png",
+    "source": "Zombie/PNG/Poses HD/character_zombie_duck.png",
+    "sha256": "c813f6506b45e918578f1010e9473709bf78991137ce48c473f34b7f9bb0e724"
+  },
+  {
+    "file": "character_robot_idle.png",
+    "source": "Robot/PNG/Poses HD/character_robot_idle.png",
+    "sha256": "7858549240f335a7c9e2a23380298f99d1805ed3b9c478df02f9c8c8870943ba"
+  },
+  {
+    "file": "character_robot_attack0.png",
+    "source": "Robot/PNG/Poses HD/character_robot_attack0.png",
+    "sha256": "7cb1e55945257146c13ce914c17328dfd780542755d9421137f69cad4fbfaec6"
+  },
+  {
+    "file": "character_robot_attack1.png",
+    "source": "Robot/PNG/Poses HD/character_robot_attack1.png",
+    "sha256": "f34c00a140bb5ba2b4556fb9b57a67d20b26e7ef96ab2139a950f0909a039718"
+  },
+  {
+    "file": "character_robot_hurt.png",
+    "source": "Robot/PNG/Poses HD/character_robot_hurt.png",
+    "sha256": "f26e3dc8d204240233dbb7d180f02b3f21db25e0c0b4fd59022e2e848eeb4e5b"
+  },
+  {
+    "file": "character_robot_down.png",
+    "source": "Robot/PNG/Poses HD/character_robot_down.png",
+    "sha256": "1dc83e48812da06932e4a04a9f0fe4ce6d9d794b2c0b1cd35322069152237a4c"
+  },
+  {
+    "file": "character_robot_duck.png",
+    "source": "Robot/PNG/Poses HD/character_robot_duck.png",
+    "sha256": "5d2d81fbaf3735800a6ff3115b8ec639eb434b68707958e496459c39c9396735"
+  }
+]

@@ -12,12 +12,17 @@ abstract final class HeroArt {
     double hurt = 0,
     bool defeated = false,
   }) {
+    // sin(pi) leaves a tiny residual; it must not select an action pose.
+    if (action.abs() < .000001) action = 0;
+    if (hurt.abs() < .000001) hurt = 0;
     final kenneyPose = defeated
         ? 3
         : hurt > 0
         ? 2
+        : defending
+        ? 4
         : action > 0
-        ? 1
+        ? (action > .65 ? 5 : 1)
         : 0;
     final sprite = KenneySprites.hero(id, kenneyPose);
     if (sprite != null && KenneySprites.image(sprite) != null) {
@@ -311,7 +316,7 @@ abstract final class HeroArt {
   }) {
     canvas.save();
     canvas.translate(160, 282);
-    if (defeated) canvas.rotate(-.42);
+
     if (defending) canvas.scale(.94, .91);
     canvas.rotate(-hurt.clamp(0, 1) * .12);
     canvas.translate(action.clamp(0, 1) * 16 - 160, -282);
@@ -324,7 +329,7 @@ abstract final class HeroArt {
     KenneySprites.paint(
       canvas,
       sprite,
-      const Rect.fromLTWH(105, 70, 110, 214),
+      const Rect.fromLTWH(65, 94, 190, 190),
       opacity: hurt > 0 ? .86 : 1,
     );
     canvas.restore();

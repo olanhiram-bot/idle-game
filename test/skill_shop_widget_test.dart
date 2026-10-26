@@ -22,8 +22,8 @@ void main() {
     expect(run.gold, 14);
     await tester.tap(find.text('Ruta'));
     await tester.pump();
-    await tester.ensureVisible(find.text('Mota de hollín'));
-    await tester.tap(find.text('Mota de hollín'));
+    await tester.ensureVisible(find.text('Zombi errante'));
+    await tester.tap(find.text('Zombi errante'));
     await tester.pump();
     expect(run.encounterState, 'preparation');
     await tester.tap(find.text('Combate'));

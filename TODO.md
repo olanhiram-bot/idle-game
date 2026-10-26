@@ -15,7 +15,29 @@ Plan maestro del trabajo pendiente. [Especificación e investigación](docs/GAME
 
 ## Now
 
+- [x] TOON-ROSTER — Integrar los seis personajes de Toon Characters
+  Scope: cuatro héroes seleccionables (Luz, Bastión, Ascua, Vigía), zombi y robot como enemigos; poses, proporciones, retratos y conservación de IDs guardados. Sin Roguelike.
+  Evidence: 73 pruebas, análisis limpio, builds web y APK debug. Selector y victoria con Vigía contra zombi probados en navegador móvil; hoja de seis actores en reposo/ataque/derrota revisada. No equivale a prueba física Android.
+  Touches: assets/toon/; lib/domain/content.dart; lib/presentation/; lib/data/save_gate.dart; pubspec.yaml; test/; docs/ASSETS_AND_LICENSES.md.
+
 ### Pulido profesional aprobado
+
+Investigación solicitada: [DESIGN_RESEARCH](docs/DESIGN_RESEARCH.md), con capturas propias, fuentes y propuesta de ejecución. No se ejecutó un rediseño en esta investigación. Las siguientes recomendaciones afinan tareas existentes; sus medidas nuevas son propuestas, no aceptación del usuario ni trabajo terminado.
+
+#### Primera entrega aprobada — HUD y controles implementados
+
+El usuario aprobó comenzar. Entrega local: dock de campaña de 320 unidades en móvil normal, nombre del héroe prioritario, vida/carga separadas, cuenta atrás/daño destacado, ayuda plegable y controles terciarios ligeros. Galería técnica retirada del gesto oculto del HUD. Ver `docs/design-evidence/polish-final.png`. Formato, análisis, 75 pruebas y builds web/APK debug aprobados; entrada/ataques/victoria probados en navegador. POL-03/POL-04 permanecen abiertos: falta completar todas las superficies y revisión física. Próxima entrega: selector/taller.
+
+- POL-03 + POL-04: comenzar por HUD/amenaza y tres niveles de controles; objetivo, límites y criterios en secciones 6, 7 y 11 del informe. Conservar ataque manual, defensa, oro, guardados y tabs. No cambiar de pack.
+  Touches: lib/presentation/rpg_view.dart; lib/presentation/campaign_menu.dart; lib/presentation/game_controls.dart; lib/presentation/game_theme.dart; test/widget_test.dart; test/campaign_widget_test.dart; test/game_controls_test.dart.
+  Acceptance: en 390×844 las acciones tácticas e intención son visibles sin ayuda expandida; automático secundario; ningún control pierde semántica/teclado ni target mínimo; 360×640 y texto 200% conservan acceso mediante scroll cuando corresponda.
+  Checks: dart format --output=none --set-exit-if-changed lib test; flutter analyze; flutter test; flutter build web; flutter build apk --debug; recorrido/capturas de preparación, pelea y resultado.
+  Dependencies: None para prototipo local; calificación física sigue en POL-08.
+- POL-05: selector con cuatro opciones, preview y confirmación fija; no ocultar Vigía ni confundir check con selección persistida. Posterior a componentes POL-04.
+- POL-04, segunda entrega: taller/ruta sin HUD de pelea innecesario, ajustes agrupados y créditos reales de Kenney; incluir carga/error/recuperación. Mantener confirmación de importación y respaldo.
+- POL-06/POL-02 y POL-01/POL-07: después, mundo/variantes y respuesta audiovisual según secciones 8–10; no sustituir layout por más partículas o packs.
+
+#### Trabajo existente (aceptación y evidencia preservadas)
 
 - [ ] POL-01 — Poses y animación de combate
   Progress: poses diferenciadas de defensa, impacto y derrota conectadas al estado real; test de cinco poses distintas aprobado. Pendiente anticipación y articulación completa de brazos/piernas y revisión visual por héroe.

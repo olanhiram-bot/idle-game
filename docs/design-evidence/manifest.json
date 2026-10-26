@@ -1,0 +1,40 @@
+{
+  "viewports": [
+    "390x844",
+    "1280x800"
+  ],
+  "captures": [
+    {
+      "file": "desktop-combat.png",
+      "sha256": "6d6022f4efb3cf5a208e77bc5649230bea2bad64d893db02905c5498aa3c672a"
+    },
+    {
+      "file": "mobile-active.png",
+      "sha256": "a0bcd2117fc2aa092f815ab4fd2d00604fe2c1bb21acce27c754bfbc6e8eec6f"
+    },
+    {
+      "file": "mobile-combat.png",
+      "sha256": "52dd78554af377e1d3afbc025f6112c3e392183835148f37ed8b12d6bbb28e15"
+    },
+    {
+      "file": "mobile-heroes.png",
+      "sha256": "ff46e39c28607144f4aaf8001ea8d3ae16c049aab41328024c48c43f8962fe44"
+    },
+    {
+      "file": "mobile-route.png",
+      "sha256": "d7cecc1dbcb838cfd85832cdf1c6fca455da4fea95ab63ca13d496419f500722"
+    },
+    {
+      "file": "mobile-settings.png",
+      "sha256": "b6b2ee022f6c3d5f5205033a98c3d1fdbd98972994b5292cc28854bca51a09e5"
+    },
+    {
+      "file": "mobile-start.png",
+      "sha256": "d5032273b86751e8305c1e567ef30896de56023e2caa7e1a99658b955051c81d"
+    },
+    {
+      "file": "mobile-upgrades.png",
+      "sha256": "34a506592e6ba5d50e656355fc36713530f8b37460f227a7773e46ab579fb546"
+    }
+  ]
+}

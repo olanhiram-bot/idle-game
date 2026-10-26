@@ -482,19 +482,19 @@ class CampaignMenu extends StatelessWidget {
             'Rival: ${run.enemy.name} · ${run.nextEnemyHealth(run.encounter)} vida · dificultad ${run.nextRank + 1}/101',
             style: const TextStyle(color: GameStyle.teal),
           ),
-          const Text(
-            'Elige un encuentro en Ruta o prepara tus módulos en Mecha.',
-            style: TextStyle(color: GameStyle.muted, fontSize: 12),
-          ),
           if (!run.tutorialSeen) ...[
-            const SizedBox(height: 8),
-            const Text(
-              'Protege ante la señal. Guarda la llamarada para una ventana de ataque.',
-              style: TextStyle(color: GameStyle.muted, fontSize: 12),
-            ),
-            TextButton(
-              onPressed: () => act(() => run.tutorialSeen = true),
-              child: const Text('Entendido · omitir ayuda'),
+            ExpansionTile(
+              title: const Text('Cómo combatir'),
+              tilePadding: EdgeInsets.zero,
+              children: [
+                const Text(
+                  'Protege ante la señal. Cuatro ataques cargan la llamarada.',
+                ),
+                TextButton(
+                  onPressed: () => act(() => run.tutorialSeen = true),
+                  child: const Text('Entendido · omitir ayuda'),
+                ),
+              ],
             ),
           ],
         ],
@@ -503,32 +503,42 @@ class CampaignMenu extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Row(
-          children: [
-            Icon(
-              run.enemyIntent
-                  ? Icons.warning_amber_rounded
-                  : Icons.track_changes,
-              size: 18,
-              color: run.enemyIntent ? const Color(0xFFFFA796) : GameStyle.teal,
-            ),
-            const SizedBox(width: 8),
-            Expanded(
-              child: Text(
-                '${run.enemy.name} · ${run.enemyIntent
-                    ? '¡Ataque inminente!'
-                    : run.armored
-                    ? 'Coraza cerrada'
-                    : 'Ventana de ataque'}',
-                style: const TextStyle(
-                  fontWeight: FontWeight.w800,
-                  fontSize: 13,
+        Container(
+          key: const Key('enemy-intent'),
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          decoration: BoxDecoration(
+            color: run.enemyIntent ? const Color(0xFF573236) : GameStyle.ink,
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Row(
+            children: [
+              Icon(
+                run.enemyIntent
+                    ? Icons.warning_amber_rounded
+                    : Icons.track_changes,
+                size: 18,
+                color: run.enemyIntent
+                    ? const Color(0xFFFFA796)
+                    : GameStyle.teal,
+              ),
+              const SizedBox(width: 8),
+              Expanded(
+                child: Text(
+                  '${run.enemyIntent
+                      ? '¡Ataque inminente!'
+                      : run.armored
+                      ? 'Coraza cerrada'
+                      : 'Próximo ataque'} · ${(run.enemyRemainingMs / 1000).toStringAsFixed(1)} s · ${run.enemyDamage} daño',
+                  style: const TextStyle(
+                    fontWeight: FontWeight.w800,
+                    fontSize: 13,
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
-        const SizedBox(height: 12),
+        const SizedBox(height: 6),
         Wrap(
           spacing: 8,
           runSpacing: 8,
@@ -573,24 +583,24 @@ class CampaignMenu extends StatelessWidget {
             ),
           ],
         ),
-        TextButton(
-          onPressed: () => act(run.toggleAutoAttack),
-          child: Text(
-            run.autoAttack ? 'Volver a manual' : 'Activar automático',
-          ),
-        ),
-        Text(
-          'PM ${run.mana}/6 · Dificultad ${run.battleRank + 1}/101',
-          style: const TextStyle(
-            color: GameStyle.teal,
-            fontWeight: FontWeight.w800,
-          ),
-        ),
-        Text(
-          'Ataque enemigo en ${(run.enemyRemainingMs / 1000).toStringAsFixed(1)} s · ${run.enemyDamage} daño',
-          style: TextStyle(
-            color: run.enemyIntent ? const Color(0xFFFFAB93) : GameStyle.muted,
-          ),
+        Wrap(
+          crossAxisAlignment: WrapCrossAlignment.center,
+          spacing: 12,
+          children: [
+            Text(
+              'PM ${run.mana}/6',
+              style: const TextStyle(
+                color: GameStyle.teal,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+            TextButton(
+              onPressed: () => act(run.toggleAutoAttack),
+              child: Text(
+                run.autoAttack ? 'Volver a manual' : 'Activar automático',
+              ),
+            ),
+          ],
         ),
         if (run.skillCooldownMs > 0) const Text('Habilidades recuperándose…'),
         Wrap(
@@ -609,10 +619,7 @@ class CampaignMenu extends StatelessWidget {
                 ),
           ],
         ),
-        if (skills.every((s) => run.skillRank(s.id) == 0))
-          const Text(
-            'Aprende habilidades con oro en Mecha. Cada encuentro empieza con 6 PM.',
-          ),
+
         if (run.pulses > 0)
           Text(
             'Último golpe: ${run.lastDamage} · ${run.lastAction == 'flare'
@@ -632,10 +639,6 @@ class CampaignMenu extends StatelessWidget {
                 : 'Recibiste ${run.lastIncomingDamage} daño',
             style: const TextStyle(color: GameStyle.muted),
           ),
-        const Text(
-          'Mantén Atacar para repetir. Guarda tu llamarada y protege ante la señal.',
-          style: TextStyle(fontSize: 12, color: GameStyle.muted),
-        ),
       ],
     );
   }

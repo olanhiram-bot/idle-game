@@ -32,27 +32,15 @@ class LanternScene extends FlameGame {
   final Images _floorAssets = Images(
     prefix: 'assets/third_party/kenney/rpg-base/selected/',
   );
-  final Images _characterAssets = Images(prefix: 'assets/third_party/kenney/');
 
   @override
   Future<void> onLoad() async {
     await super.onLoad();
-    for (final id in const [128, 132, 134]) {
+    for (final id in const [128, 129, 130, 132, 133, 134]) {
       final filename = 'rpgTile${id.toString().padLeft(3, '0')}.png';
       _floorTiles[id] = await _floorAssets.load(filename);
     }
-    const poses = ['idle', 'attack0', 'hurt', 'down'];
-    for (final character in const ['Female adventurer', 'Male adventurer']) {
-      final filenamePrefix = character == 'Female adventurer'
-          ? 'character_femaleAdventurer'
-          : 'character_maleAdventurer';
-      for (final pose in poses) {
-        final filename = '${filenamePrefix}_$pose.png';
-        final path =
-            'toon-characters/selected/$character/PNG/Poses HD/$filename';
-        KenneySprites.install(filename, await _characterAssets.load(path));
-      }
-    }
+    await KenneySprites.load();
     _assetsLoaded.complete();
   }
 
@@ -176,6 +164,7 @@ class LanternScene extends FlameGame {
       run.campaign ? run.encounter : 0,
       attack: reducedMotion ? 0 : math.sin(_enemyPulse * math.pi),
       hit: action,
+      defeated: run.encounterWon,
     );
     canvas.restore();
     if (_pulse < 1 && !reducedMotion) {
@@ -274,7 +263,6 @@ class LanternScene extends FlameGame {
   @override
   void onRemove() {
     _floorAssets.clearCache();
-    _characterAssets.clearCache();
     super.onRemove();
   }
 }

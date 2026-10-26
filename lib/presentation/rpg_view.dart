@@ -13,7 +13,6 @@ import 'arena_layout.dart';
 import 'game_theme.dart';
 import 'game_badge.dart';
 import 'character_view.dart';
-import 'kenney_asset_gallery_view.dart';
 
 class RpgView extends StatelessWidget {
   const RpgView({
@@ -56,6 +55,8 @@ class RpgView extends StatelessWidget {
                 ? 600.0
                 : scale > 1.4
                 ? 340.0
+                : run.campaign
+                ? 320.0
                 : 390.0,
           );
           final arenaTop = insets.top + (scale > 1.4 ? 160.0 : 126.0);
@@ -73,14 +74,14 @@ class RpgView extends StatelessWidget {
           final meterWidth = math.min(180.0, constraints.maxWidth * .42);
           final meterTop = math.max(
             arenaTop,
-            arenaTop + arenaHeight * .55 - 66 * zoom - 54 * scale,
+            arenaTop + arenaHeight * .55 - 66 * zoom - 86 * scale,
           );
           return Stack(
             fit: StackFit.expand,
             children: [
               Semantics(
                 button: true,
-                label: 'Atacar criatura de hollín',
+                label: 'Atacar ${run.enemy.name}',
                 onTap: run.running ? onAttack : null,
                 child: GestureDetector(
                   onTap: run.running ? onAttack : null,
@@ -99,33 +100,20 @@ class RpgView extends StatelessWidget {
                     ),
                     child: Row(
                       children: [
-                        Tooltip(
-                          message: 'Mantén pulsado para ver los assets usados',
-                          child: GestureDetector(
-                            key: const Key('kenney-assets-gallery'),
-                            onLongPress: () => Navigator.of(context).push(
-                              MaterialPageRoute<void>(
-                                builder: (_) => const KenneyAssetGalleryView(),
-                              ),
-                            ),
-                            child: SizedBox(
-                              key: const Key('hud-hero-portrait'),
-                              width: 42,
-                              height: 48,
-                              child: CustomPaint(
-                                painter: HeroPortrait(run.heroId),
-                              ),
-                            ),
-                          ),
+                        SizedBox(
+                          key: const Key('hud-hero-portrait'),
+                          width: 42,
+                          height: 48,
+                          child: CustomPaint(painter: HeroPortrait(run.heroId)),
                         ),
                         const SizedBox(width: 6),
                         Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const Text(
-                                'Farol de Ceniza',
-                                style: TextStyle(
+                              Text(
+                                run.hero.name,
+                                style: const TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 16,
                                   letterSpacing: .3,
@@ -134,7 +122,7 @@ class RpgView extends StatelessWidget {
                               Text(
                                 run.completed
                                     ? 'Ruta restaurada · 3/3'
-                                    : '${run.hero.name} · Nivel ${run.level}',
+                                    : 'Nivel ${run.level} · ${run.hero.role}',
                                 style: const TextStyle(
                                   fontSize: 12,
                                   color: Color(0xFFCCD4D9),
@@ -222,7 +210,8 @@ class RpgView extends StatelessWidget {
                   width: meterWidth,
                   child: _meter(
                     key: const Key('enemy-health'),
-                    label: 'Vida · ${run.enemyHealth}/${run.maxHealth}',
+                    label:
+                        '${run.enemy.name} · ${run.enemyHealth}/${run.maxHealth}',
                     value: run.enemyHealth / run.maxHealth,
                     color: const Color(0xFFE58B85),
                   ),
@@ -234,15 +223,21 @@ class RpgView extends StatelessWidget {
                     constraints.maxWidth - meterWidth - 12,
                   ),
                   width: meterWidth,
-                  child: _meter(
-                    key: const Key('hero-charge'),
-                    label: run.campaign
-                        ? 'Vida ${run.heroHealth}/${run.maxHeroHealth} · Carga ${run.charge}/${run.chargeTarget}'
-                        : 'Carga · ${run.charge}/4',
-                    value: run.campaign
-                        ? run.heroHealth / run.maxHeroHealth
-                        : run.charge / 4,
-                    color: const Color(0xFFFFD18A),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      _meter(
+                        key: const Key('hero-charge'),
+                        label: run.campaign
+                            ? 'Vida ${run.heroHealth}/${run.maxHeroHealth}'
+                            : 'Carga · ${run.charge}/4',
+                        value: run.campaign
+                            ? run.heroHealth / run.maxHeroHealth
+                            : run.charge / 4,
+                        color: GameStyle.teal,
+                      ),
+                      if (run.campaign) _charge(),
+                    ],
                   ),
                 ),
               ] else
@@ -377,6 +372,40 @@ class RpgView extends StatelessWidget {
       ),
     );
   }
+
+  Widget _charge() => Container(
+    margin: const EdgeInsets.only(top: 4),
+    padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
+    decoration: BoxDecoration(
+      color: GameStyle.ink,
+      borderRadius: BorderRadius.circular(6),
+    ),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Carga ${run.charge}/${run.chargeTarget}',
+          style: const TextStyle(fontSize: 12, color: GameStyle.gold),
+        ),
+        const SizedBox(height: 3),
+        Row(
+          children: [
+            for (var i = 0; i < run.chargeTarget; i++)
+              Expanded(
+                child: Container(
+                  height: 5,
+                  margin: const EdgeInsets.only(right: 4),
+                  decoration: BoxDecoration(
+                    color: i < run.charge ? GameStyle.gold : GameStyle.edge,
+                    borderRadius: BorderRadius.circular(2),
+                  ),
+                ),
+              ),
+          ],
+        ),
+      ],
+    ),
+  );
 
   Widget _tab(int index, String label, IconData icon) => Expanded(
     child: Semantics(
