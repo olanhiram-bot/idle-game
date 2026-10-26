@@ -39,6 +39,8 @@ El usuario aprobó comenzar. Entrega local: dock de campaña de 320 unidades en 
 
 #### Trabajo existente (aceptación y evidencia preservadas)
 
+Segunda entrega desarrollada en worktree `redesign/ui-pass`: selector 2×2 con confirmación fija y preview sin mutación; taller/ruta aprovechan el área antes ocupada por HUD de combate; seleccionado marcado con check; ajustes agrupados y créditos Kenney corregidos. Ver capturas `docs/design-evidence/redesign-*.png`. Verificación: formato, análisis, 78 pruebas, builds web/APK debug; selector Vigía y navegación probados en navegador. Sigue pendiente el rediseño completo de portada/carga/final/recuperación, arte de escenarios y feedback audiovisual. No se declara POL-04/POL-05 completamente cerrado. Integración local a la rama principal `master` solicitada por el usuario; publicación remota no incluida en esta solicitud.
+
 - [ ] POL-01 — Poses y animación de combate
   Progress: poses diferenciadas de defensa, impacto y derrota conectadas al estado real; test de cinco poses distintas aprobado. Pendiente anticipación y articulación completa de brazos/piernas y revisión visual por héroe.
   Acceptance: preparación, ataque, impacto, defensa y derrota legibles; reducción de movimiento; remate visible.

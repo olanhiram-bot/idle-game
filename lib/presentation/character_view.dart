@@ -8,6 +8,7 @@ import '../domain/lantern_run.dart';
 import 'hero_art.dart';
 import 'game_theme.dart';
 import 'game_badge.dart';
+
 import 'kenney_sprites.dart';
 
 class CharacterView extends StatefulWidget {
@@ -24,7 +25,7 @@ class _CharacterViewState extends State<CharacterView> {
     final hero = heroes.firstWhere((h) => h.id == selected);
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(76),
+        preferredSize: const Size.fromHeight(64),
         child: SafeArea(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -50,154 +51,165 @@ class _CharacterViewState extends State<CharacterView> {
         child: Center(
           child: ConstrainedBox(
             constraints: const BoxConstraints(maxWidth: 720),
-            child: SingleChildScrollView(
-              padding: const EdgeInsets.all(20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Text(
-                    hero.role.toUpperCase(),
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(
-                      color: GameStyle.teal,
-                      letterSpacing: 2,
-                    ),
-                  ),
-                  const SizedBox(height: 12),
-                  Container(
-                    height: 280,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(28),
-                      gradient: const RadialGradient(
-                        colors: [Color(0xFF345D68), GameStyle.ink],
-                      ),
-                    ),
-                    child: Stack(
-                      fit: StackFit.expand,
+            child: Column(
+              children: [
+                Expanded(
+                  child: SingleChildScrollView(
+                    padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        Positioned(
-                          top: 12,
-                          left: 12,
-                          child: GameBadge(
-                            icon: hero.id == 'bastion'
-                                ? Icons.shield
-                                : hero.id == 'ascua'
-                                ? Icons.local_fire_department
-                                : Icons.auto_fix_high,
+                        Text(
+                          hero.role.toUpperCase(),
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                            color: GameStyle.teal,
+                            letterSpacing: 2,
                           ),
                         ),
-                        CustomPaint(painter: HeroPortrait(selected)),
-                        const Positioned(
-                          bottom: 10,
-                          right: 12,
-                          child: Text(
-                            'GUARDIÁN',
-                            style: TextStyle(
-                              color: GameStyle.teal,
-                              letterSpacing: 2,
-                              fontSize: 10,
-                              fontWeight: FontWeight.w800,
+                        const SizedBox(height: 4),
+                        Container(
+                          height: (MediaQuery.sizeOf(context).height * .22)
+                              .clamp(120.0, 200.0),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(28),
+                            gradient: const RadialGradient(
+                              colors: [Color(0xFF345D68), GameStyle.ink],
                             ),
+                          ),
+                          child: Stack(
+                            fit: StackFit.expand,
+                            children: [
+                              CustomPaint(painter: HeroPortrait(selected)),
+                            ],
+                          ),
+                        ),
+                        Text(
+                          hero.name,
+                          textAlign: TextAlign.center,
+                          style: Theme.of(context).textTheme.headlineLarge,
+                        ),
+                        const SizedBox(height: 4),
+                        Text(hero.description, textAlign: TextAlign.center),
+                        const SizedBox(height: 8),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: StatTile(
+                                label: 'VIDA',
+                                value: '${widget.run.healthFor(hero)}',
+                                icon: Icons.favorite_rounded,
+                              ),
+                            ),
+                            const SizedBox(width: 8),
+                            Expanded(
+                              child: StatTile(
+                                label: 'DAÑO',
+                                value:
+                                    '${hero.damage + widget.run.upgrades + (widget.run.equipped.contains('brasa') ? 1 : 0)}',
+                                icon: Icons.bolt_rounded,
+                              ),
+                            ),
+                            const SizedBox(width: 8),
+                            Expanded(
+                              child: StatTile(
+                                label: 'NIVEL',
+                                value: '${widget.run.level}',
+                                icon: Icons.workspace_premium_rounded,
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 12),
+                        LayoutBuilder(
+                          builder: (context, constraints) => Wrap(
+                            alignment: WrapAlignment.center,
+                            spacing: 8,
+                            runSpacing: 0,
+                            children: [
+                              for (final h in heroes)
+                                SizedBox(
+                                  width: (constraints.maxWidth - 8) / 2,
+                                  child: Semantics(
+                                    selected: selected == h.id,
+                                    child: OutlinedButton(
+                                      key: Key('hero-choice-${h.id}'),
+                                      onPressed: () =>
+                                          setState(() => selected = h.id),
+                                      style: OutlinedButton.styleFrom(
+                                        backgroundColor: selected == h.id
+                                            ? const Color(0xFF3A4669)
+                                            : GameStyle.panel,
+                                        side: BorderSide(
+                                          color: selected == h.id
+                                              ? GameStyle.gold
+                                              : GameStyle.edge,
+                                          width: 2,
+                                        ),
+                                      ),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          SizedBox(
+                                            width: 36,
+                                            height: 52,
+                                            child: CustomPaint(
+                                              painter: HeroPortrait(h.id),
+                                            ),
+                                          ),
+                                          const SizedBox(width: 6),
+                                          Expanded(child: Text(h.name)),
+                                          Icon(
+                                            selected == h.id
+                                                ? Icons.check_circle
+                                                : Icons.circle_outlined,
+                                            size: 16,
+                                            color: selected == h.id
+                                                ? GameStyle.gold
+                                                : GameStyle.muted,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                            ],
                           ),
                         ),
                       ],
                     ),
                   ),
-                  Text(
-                    hero.name,
-                    textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.headlineLarge,
+                ),
+                Container(
+                  key: const Key('hero-confirmation'),
+                  padding: const EdgeInsets.fromLTRB(16, 8, 16, 12),
+                  decoration: const BoxDecoration(
+                    color: GameStyle.ink,
+                    border: Border(top: BorderSide(color: GameStyle.edge)),
                   ),
-                  const SizedBox(height: 8),
-                  Text(hero.description, textAlign: TextAlign.center),
-                  const SizedBox(height: 12),
-                  Row(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      Expanded(
-                        child: StatTile(
-                          label: 'VIDA',
-                          value: '${widget.run.healthFor(hero)}',
-                          icon: Icons.favorite_rounded,
-                        ),
+                      FilledButton(
+                        onPressed: widget.run.encounterState == 'active'
+                            ? null
+                            : () => Navigator.pop(context, selected),
+                        child: Text('Jugar con ${hero.name}'),
                       ),
-                      const SizedBox(width: 8),
-                      Expanded(
-                        child: StatTile(
-                          label: 'DAÑO',
-                          value:
-                              '${hero.damage + widget.run.upgrades + (widget.run.equipped.contains('brasa') ? 1 : 0)}',
-                          icon: Icons.bolt_rounded,
-                        ),
-                      ),
-                      const SizedBox(width: 8),
-                      Expanded(
-                        child: StatTile(
-                          label: 'NIVEL',
-                          value: '${widget.run.level}',
-                          icon: Icons.workspace_premium_rounded,
+                      Text(
+                        widget.run.encounterState == 'active'
+                            ? 'Termina el encuentro para cambiar de guardián.'
+                            : 'Confirma tu elección. Tus mejoras se conservan.',
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                          color: GameStyle.muted,
+                          fontSize: 12,
                         ),
                       ),
                     ],
                   ),
-                  const SizedBox(height: 20),
-                  Wrap(
-                    alignment: WrapAlignment.center,
-                    spacing: 12,
-                    runSpacing: 12,
-                    children: [
-                      for (final h in heroes)
-                        OutlinedButton(
-                          key: Key('hero-choice-${h.id}'),
-                          onPressed: () => setState(() => selected = h.id),
-                          style: OutlinedButton.styleFrom(
-                            backgroundColor: selected == h.id
-                                ? const Color(0xFF3A4669)
-                                : GameStyle.panel,
-                            side: BorderSide(
-                              color: selected == h.id
-                                  ? GameStyle.gold
-                                  : GameStyle.edge,
-                              width: 2,
-                            ),
-                          ),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              SizedBox(
-                                width: 68,
-                                height: 90,
-                                child: CustomPaint(painter: HeroPortrait(h.id)),
-                              ),
-                              Text(h.name),
-                              Icon(
-                                selected == h.id
-                                    ? Icons.check_circle
-                                    : Icons.circle_outlined,
-                                size: 16,
-                                color: selected == h.id
-                                    ? GameStyle.gold
-                                    : GameStyle.muted,
-                              ),
-                            ],
-                          ),
-                        ),
-                    ],
-                  ),
-                  const SizedBox(height: 24),
-                  FilledButton(
-                    onPressed: widget.run.encounterState == 'active'
-                        ? null
-                        : () => Navigator.pop(context, selected),
-                    child: Text('Jugar con ${hero.name}'),
-                  ),
-                  const SizedBox(height: 8),
-                  const Text(
-                    'Vista previa: confirma para cambiar. Tus mejoras y habilidades se conservan.',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(color: GameStyle.muted),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),

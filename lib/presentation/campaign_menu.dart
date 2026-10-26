@@ -49,7 +49,7 @@ class CampaignMenu extends StatelessWidget {
         children: [
           const SectionHeading(
             'El taller del farol',
-            'Forja tu luz. Elige cómo afrontar la oscuridad.',
+            'Mejora tu guardián. Prepara el próximo encuentro.',
           ),
           OutlinedButton.icon(
             onPressed: run.encounterState == 'active'
@@ -102,9 +102,7 @@ class CampaignMenu extends StatelessWidget {
                       : 'Vida máxima ${run.maxHeroHealth} → ${run.maxHeroHealth + 5}',
                   style: const TextStyle(fontWeight: FontWeight.w800),
                 ),
-                const Text(
-                  '+5 de vida permanente para todos tus héroes. Compra fuera de combate.',
-                ),
+                const Text('+5 de vida para todos tus héroes.'),
                 const SizedBox(height: 8),
                 FilledButton(
                   onPressed: run.canBuyVitality
@@ -120,7 +118,7 @@ class CampaignMenu extends StatelessWidget {
                 ),
                 if (run.vitality < 10 && run.gold < run.vitalityCost)
                   Text(
-                    'Te faltan ${run.vitalityCost - run.gold} oro. Gana peleas o reclama encargos en Ruta.',
+                    'Faltan ${run.vitalityCost - run.gold} oro · consigue más en Combate o Ruta.',
                     style: const TextStyle(color: GameStyle.muted),
                   ),
               ],
@@ -129,7 +127,7 @@ class CampaignMenu extends StatelessWidget {
           const SizedBox(height: 16),
           SectionHeading(
             'Academia de habilidades',
-            '${run.gold} oro disponible · habilidades compartidas por tus héroes',
+            'Habilidades compartidas · ${run.gold} oro disponible',
           ),
           for (final skill in skills)
             Padding(
@@ -354,8 +352,14 @@ class CampaignMenu extends StatelessWidget {
                     ],
                   ),
                   trailing: Icon(
-                    run.unlocked(i) ? Icons.chevron_right : Icons.lock_outline,
-                    color: GameStyle.muted,
+                    !run.unlocked(i)
+                        ? Icons.lock_outline
+                        : run.encounter == i
+                        ? Icons.check_circle
+                        : Icons.chevron_right,
+                    color: run.encounter == i
+                        ? GameStyle.gold
+                        : GameStyle.muted,
                   ),
                   onTap: run.unlocked(i) && run.encounterState != 'active'
                       ? () => act(() {
