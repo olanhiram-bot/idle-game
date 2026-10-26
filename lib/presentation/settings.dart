@@ -58,7 +58,7 @@ Future<Map<String, Object?>?> showRunSettings(
                   const SizedBox(height: 12),
                   const SectionHeading(
                     'Ajustes y respaldo',
-                    'Tu aventura, a tu manera. Tus datos, en tu dispositivo.',
+                    'Preferencias de juego y seguridad de tu partida.',
                   ),
                   SwitchListTile(
                     title: const Text('Sonido'),
@@ -77,6 +77,11 @@ Future<Map<String, Object?>?> showRunSettings(
                     ),
                     value: run.vibration,
                     onChanged: (v) => change(() => run.vibration = v),
+                  ),
+                  const SizedBox(height: 16),
+                  const SectionHeading(
+                    'Accesibilidad',
+                    'Ajusta la experiencia a tu comodidad.',
                   ),
                   SwitchListTile(
                     title: const Text('Reducir movimiento'),
@@ -99,25 +104,15 @@ Future<Map<String, Object?>?> showRunSettings(
                     onChanged: (v) => change(() => run.assistance = v),
                   ),
                   const GamePanel(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'GUÍA DEL GUARDAFAROLES',
-                          style: TextStyle(
-                            color: GameStyle.gold,
-                            fontWeight: FontWeight.w800,
-                            letterSpacing: 1,
-                          ),
-                        ),
-                        SizedBox(height: 8),
-                        Text(
-                          'Cómo jugar: elige un encuentro, mantén Atacar, espera la señal para Proteger y usa Llamarada cuando la coraza se abra. Gana oro, mejora la mecha y elige dos módulos fuera del combate. Cinco victorias restauran cada farol. El jefe abre la ruta.',
-                        ),
-                      ],
+                    child: Text(
+                      'GUÍA DEL GUARDAFAROLES\nAtaca para cargar Llamarada. Protege ante la señal enemiga. Mejora tu vida y habilidades con el oro ganado.',
                     ),
                   ),
                   const SizedBox(height: 12),
+                  const SectionHeading(
+                    'Tu partida',
+                    'Exporta una copia antes de cambiar tus datos.',
+                  ),
                   FilledButton(
                     onPressed: () async {
                       try {
@@ -228,7 +223,7 @@ Future<Map<String, Object?>?> showRunSettings(
                     child: const Text('Nueva partida · conservar respaldo'),
                   ),
                   const Text(
-                    'Créditos: personajes, escenario y efectos son originales de este proyecto. Flutter y Flame y las demás dependencias conservan sus respectivas licencias. Sin cuentas, compras ni anuncios.',
+                    'Arte: Toon Characters y RPG Base de Kenney (CC0). Escenario vectorial y audio propios. Flutter, Flame y demás dependencias conservan sus licencias. Sin cuentas, compras ni anuncios.',
                   ),
                   const Text(
                     'Guardado local: borrar datos del navegador o desinstalar puede eliminar la partida. Exporta una copia. No hay progreso offline.',

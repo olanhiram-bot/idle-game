@@ -49,16 +49,24 @@ class RpgView extends StatelessWidget {
       body: LayoutBuilder(
         builder: (context, constraints) {
           final height = constraints.maxHeight;
-          final dockHeight = math.min(
-            height * (tab == 0 ? (height < 500 ? .60 : .48) : .66),
-            tab != 0
-                ? 600.0
-                : scale > 1.4
-                ? 340.0
-                : run.campaign
-                ? 320.0
-                : 390.0,
-          );
+          final dockHeight = tab != 0 && run.campaign
+              ? math.max(
+                  140.0,
+                  height -
+                      insets.top -
+                      insets.bottom -
+                      (scale > 1.4 ? 140 : 100),
+                )
+              : math.min(
+                  height * (tab == 0 ? (height < 500 ? .60 : .48) : .66),
+                  tab != 0
+                      ? 600.0
+                      : scale > 1.4
+                      ? 340.0
+                      : run.campaign
+                      ? 320.0
+                      : 390.0,
+                );
           final arenaTop = insets.top + (scale > 1.4 ? 160.0 : 126.0);
           final arenaBottom = height - dockHeight - insets.bottom;
           scene.arenaTop = arenaTop;
@@ -171,106 +179,111 @@ class RpgView extends StatelessWidget {
                   ),
                 ),
               ),
-              Positioned(
-                top: insets.top + 88,
-                left: 20,
-                right: 20,
-                child: IgnorePointer(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
-                        'GALERÍA DE LOS ECOS',
-                        style: TextStyle(
-                          fontSize: 12,
-                          letterSpacing: 2,
-                          fontWeight: FontWeight.w900,
-                          color: GameStyle.gold,
-                          shadows: [Shadow(color: Colors.black, blurRadius: 6)],
+              if (tab == 0 || !run.campaign)
+                Positioned(
+                  top: insets.top + 88,
+                  left: 20,
+                  right: 20,
+                  child: IgnorePointer(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          'GALERÍA DE LOS ECOS',
+                          style: TextStyle(
+                            fontSize: 12,
+                            letterSpacing: 2,
+                            fontWeight: FontWeight.w900,
+                            color: GameStyle.gold,
+                            shadows: [
+                              Shadow(color: Colors.black, blurRadius: 6),
+                            ],
+                          ),
                         ),
-                      ),
-                      Text(
-                        'Tramo ${run.stage + 1}/3 · ${run.litLanterns}/3 faroles restaurados',
-                        style: const TextStyle(
-                          fontSize: 11,
-                          color: GameStyle.muted,
+                        Text(
+                          'Tramo ${run.stage + 1}/3 · ${run.litLanterns}/3 faroles restaurados',
+                          style: const TextStyle(
+                            fontSize: 11,
+                            color: GameStyle.muted,
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              if (scene.arenaBottom - arenaTop > 160) ...[
-                Positioned(
-                  top: meterTop,
-                  left: (sceneLeft + 430 * zoom - meterWidth / 2).clamp(
-                    12.0,
-                    constraints.maxWidth - meterWidth - 12,
+              if (tab == 0 || !run.campaign) ...[
+                if (scene.arenaBottom - arenaTop > 160) ...[
+                  Positioned(
+                    top: meterTop,
+                    left: (sceneLeft + 430 * zoom - meterWidth / 2).clamp(
+                      12.0,
+                      constraints.maxWidth - meterWidth - 12,
+                    ),
+                    width: meterWidth,
+                    child: _meter(
+                      key: const Key('enemy-health'),
+                      label:
+                          '${run.enemy.name} · ${run.enemyHealth}/${run.maxHealth}',
+                      value: run.enemyHealth / run.maxHealth,
+                      color: const Color(0xFFE58B85),
+                    ),
                   ),
-                  width: meterWidth,
-                  child: _meter(
-                    key: const Key('enemy-health'),
-                    label:
-                        '${run.enemy.name} · ${run.enemyHealth}/${run.maxHealth}',
-                    value: run.enemyHealth / run.maxHealth,
-                    color: const Color(0xFFE58B85),
-                  ),
-                ),
-                Positioned(
-                  top: meterTop,
-                  left: (sceneLeft + 160 * zoom - meterWidth / 2).clamp(
-                    12.0,
-                    constraints.maxWidth - meterWidth - 12,
-                  ),
-                  width: meterWidth,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      _meter(
-                        key: const Key('hero-charge'),
-                        label: run.campaign
-                            ? 'Vida ${run.heroHealth}/${run.maxHeroHealth}'
-                            : 'Carga · ${run.charge}/4',
-                        value: run.campaign
-                            ? run.heroHealth / run.maxHeroHealth
-                            : run.charge / 4,
-                        color: GameStyle.teal,
-                      ),
-                      if (run.campaign) _charge(),
-                    ],
-                  ),
-                ),
-              ] else
-                Positioned(
-                  top: arenaTop,
-                  left: 16,
-                  right: 16,
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: _meter(
+                  Positioned(
+                    top: meterTop,
+                    left: (sceneLeft + 160 * zoom - meterWidth / 2).clamp(
+                      12.0,
+                      constraints.maxWidth - meterWidth - 12,
+                    ),
+                    width: meterWidth,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        _meter(
                           key: const Key('hero-charge'),
                           label: run.campaign
                               ? 'Vida ${run.heroHealth}/${run.maxHeroHealth}'
-                              : 'Carga ${run.charge}/4',
+                              : 'Carga · ${run.charge}/4',
                           value: run.campaign
                               ? run.heroHealth / run.maxHeroHealth
                               : run.charge / 4,
-                          color: const Color(0xFFFFD18A),
+                          color: GameStyle.teal,
                         ),
-                      ),
-                      const SizedBox(width: 24),
-                      Expanded(
-                        child: _meter(
-                          key: const Key('enemy-health'),
-                          label: 'Vida ${run.enemyHealth}/${run.maxHealth}',
-                          value: run.enemyHealth / run.maxHealth,
-                          color: const Color(0xFFE58B85),
-                        ),
-                      ),
-                    ],
+                        if (run.campaign) _charge(),
+                      ],
+                    ),
                   ),
-                ),
+                ] else
+                  Positioned(
+                    top: arenaTop,
+                    left: 16,
+                    right: 16,
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: _meter(
+                            key: const Key('hero-charge'),
+                            label: run.campaign
+                                ? 'Vida ${run.heroHealth}/${run.maxHeroHealth}'
+                                : 'Carga ${run.charge}/4',
+                            value: run.campaign
+                                ? run.heroHealth / run.maxHeroHealth
+                                : run.charge / 4,
+                            color: const Color(0xFFFFD18A),
+                          ),
+                        ),
+                        const SizedBox(width: 24),
+                        Expanded(
+                          child: _meter(
+                            key: const Key('enemy-health'),
+                            label: 'Vida ${run.enemyHealth}/${run.maxHealth}',
+                            value: run.enemyHealth / run.maxHealth,
+                            color: const Color(0xFFE58B85),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+              ],
               Align(
                 alignment: Alignment.bottomCenter,
                 child: Container(
