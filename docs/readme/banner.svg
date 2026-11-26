@@ -1,0 +1,127 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="420" viewBox="0 0 1200 420" role="img" aria-labelledby="title desc">
+  <title id="title">Farol de Ceniza</title>
+  <desc id="desc">Banner nocturno con un farol encendido sobre una ruta de ceniza.</desc>
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#081120"/>
+      <stop offset="0.55" stop-color="#0E1C33"/>
+      <stop offset="1" stop-color="#14263F"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#FFCF74" stop-opacity="0.95"/>
+      <stop offset="0.35" stop-color="#F0A93C" stop-opacity="0.45"/>
+      <stop offset="1" stop-color="#F0A93C" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="halo" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#7FE3D4" stop-opacity="0.22"/>
+      <stop offset="1" stop-color="#7FE3D4" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="lamp" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFE3A6"/>
+      <stop offset="0.55" stop-color="#FFC45C"/>
+      <stop offset="1" stop-color="#E6932C"/>
+    </linearGradient>
+    <linearGradient id="ridge" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#101F33"/>
+      <stop offset="1" stop-color="#0A1524"/>
+    </linearGradient>
+    <linearGradient id="ridge2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0C1929"/>
+      <stop offset="1" stop-color="#07101C"/>
+    </linearGradient>
+    <linearGradient id="fade" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#0A1424" stop-opacity="0.9"/>
+      <stop offset="0.45" stop-color="#0A1424" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="420" fill="url(#sky)"/>
+
+  <!-- estrellas y ceniza -->
+  <g fill="#DCE9F5">
+    <circle cx="120" cy="58" r="1.6" opacity="0.55"/>
+    <circle cx="236" cy="96" r="1.2" opacity="0.35"/>
+    <circle cx="342" cy="44" r="1.8" opacity="0.5"/>
+    <circle cx="470" cy="84" r="1.1" opacity="0.4"/>
+    <circle cx="612" cy="38" r="1.5" opacity="0.45"/>
+    <circle cx="705" cy="104" r="1.2" opacity="0.3"/>
+    <circle cx="804" cy="52" r="1.7" opacity="0.5"/>
+    <circle cx="1040" cy="66" r="1.4" opacity="0.4"/>
+    <circle cx="1112" cy="128" r="1.8" opacity="0.35"/>
+    <circle cx="970" cy="34" r="1.1" opacity="0.5"/>
+    <circle cx="556" cy="146" r="1.2" opacity="0.25"/>
+  </g>
+
+  <!-- resplandor del farol -->
+  <circle cx="932" cy="196" r="250" fill="url(#glow)"/>
+  <circle cx="932" cy="196" r="420" fill="url(#halo)"/>
+
+  <!-- montañas -->
+  <path d="M0 330 L120 286 L214 318 L330 268 L436 316 L548 276 L660 324 L760 292 L872 330 L986 296 L1098 334 L1200 302 L1200 420 L0 420 Z" fill="url(#ridge)"/>
+  <path d="M0 372 L132 344 L258 378 L392 340 L520 380 L648 348 L778 386 L910 352 L1044 388 L1168 356 L1200 368 L1200 420 L0 420 Z" fill="url(#ridge2)"/>
+
+  <!-- camino de faroles -->
+  <g>
+    <rect x="1014" y="334" width="4" height="58" fill="#0A1421"/>
+    <circle cx="1016" cy="330" r="22" fill="#F0A93C" opacity="0.1"/>
+    <rect x="1006" y="318" width="20" height="24" rx="3" fill="#0B1826" stroke="#31506B" stroke-width="1.5"/>
+    <rect x="1010" y="322" width="12" height="16" rx="2" fill="#F5C06A"/>
+    <path d="M1003 318 L1029 318 L1024 311 L1008 311 Z" fill="#122234" stroke="#31506B" stroke-width="1"/>
+
+    <rect x="1088" y="344" width="4" height="52" fill="#0A1421"/>
+    <circle cx="1090" cy="341" r="17" fill="#7FE3D4" opacity="0.1"/>
+    <rect x="1081" y="330" width="18" height="22" rx="3" fill="#0B1826" stroke="#31506B" stroke-width="1.5"/>
+    <rect x="1085" y="334" width="10" height="14" rx="2" fill="#8FD9CD"/>
+    <path d="M1078 330 L1102 330 L1097 324 L1083 324 Z" fill="#122234" stroke="#31506B" stroke-width="1"/>
+  </g>
+
+  <!-- farol principal -->
+  <g>
+    <!-- poste -->
+    <rect x="925" y="212" width="8" height="128" rx="4" fill="#0A1421"/>
+    <rect x="927" y="212" width="2" height="128" fill="#31506B" opacity="0.7"/>
+    <path d="M932 200 L932 216" stroke="#0A1421" stroke-width="7" stroke-linecap="round"/>
+    <!-- asa -->
+    <path d="M906 150 C 906 116, 958 116, 958 150" fill="none" stroke="#0A1421" stroke-width="6" stroke-linecap="round"/>
+    <!-- techo -->
+    <path d="M890 150 L974 150 L956 126 L908 126 Z" fill="#122234" stroke="#31506B" stroke-width="2"/>
+    <path d="M890 150 L974 150" stroke="#F0A93C" stroke-width="2" opacity="0.5"/>
+    <!-- cuerpo -->
+    <rect x="898" y="150" width="68" height="74" rx="8" fill="#0B1826" stroke="#31506B" stroke-width="2"/>
+    <rect x="906" y="158" width="52" height="58" rx="5" fill="url(#lamp)"/>
+    <rect x="906" y="158" width="52" height="58" rx="5" fill="none" stroke="#FFE3A6" stroke-width="1.5" opacity="0.7"/>
+    <!-- llama -->
+    <path d="M932 168 C 944 182, 947 192, 938 202 C 933 208, 927 207, 924 200 C 920 190, 926 180, 932 168 Z" fill="#FFF6DC"/>
+    <path d="M932 180 C 938 188, 939 194, 935 199 C 932 202, 928 200, 928 195 C 928 190, 930 185, 932 180 Z" fill="#FFD07A"/>
+    <!-- base -->
+    <path d="M888 224 L976 224 L966 238 L898 238 Z" fill="#122234" stroke="#31506B" stroke-width="2"/>
+    <circle cx="932" cy="230" r="3" fill="#F5C06A"/>
+  </g>
+
+  <!-- chispas -->
+  <g fill="#FFD98E">
+    <circle cx="1010" cy="150" r="2.6" opacity="0.85"/>
+    <circle cx="1056" cy="196" r="2" opacity="0.6"/>
+    <circle cx="1002" cy="248" r="1.8" opacity="0.55"/>
+    <circle cx="870" cy="180" r="2.2" opacity="0.5"/>
+    <circle cx="858" cy="256" r="1.5" opacity="0.4"/>
+    <circle cx="1070" cy="118" r="1.7" opacity="0.45"/>
+  </g>
+
+  <!-- velo para legibilidad -->
+  <rect width="760" height="420" fill="url(#fade)"/>
+
+  <!-- texto -->
+  <g font-family="Georgia, 'Times New Roman', serif">
+    <text x="82" y="120" fill="#E0A94A" font-family="'Helvetica Neue', Arial, sans-serif" font-size="14" letter-spacing="6">IDLE RPG · FLUTTER + FLAME</text>
+    <text x="78" y="208" fill="#F6EBD5" font-size="76" letter-spacing="2">FAROL</text>
+    <text x="78" y="286" fill="#F6EBD5" font-size="76" letter-spacing="2">DE CENIZA</text>
+  </g>
+  <g font-family="'Helvetica Neue', Arial, sans-serif">
+    <text x="82" y="338" fill="#A8C4D8" font-size="21" letter-spacing="0.5">La oscuridad no se conquista.</text>
+    <text x="82" y="368" fill="#E0A94A" font-size="21" letter-spacing="0.5">Se vuelve a encender.</text>
+  </g>
+
+  <!-- borde -->
+  <rect x="1" y="1" width="1198" height="418" fill="none" stroke="#2A425C" stroke-width="2" opacity="0.8"/>
+</svg>
